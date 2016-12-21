@@ -23,7 +23,7 @@ class Client: NSObject {
         parametersWithApiKey[StudentLocationParameterKeys.ApiKey] = Constants.ParseApiKey
         
         /* 2/3. Build the URL, Configure the request */
-        let request = NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
+        let request = NSMutableURLRequest(url: udacityURLFromParameters(parameters, withPathExtension: method))
         
         /* 4. Make the request */
         let task = session.dataTask(with: request) { (data, response, error) in
@@ -74,7 +74,7 @@ class Client: NSObject {
         parametersWithApiKey[StudentLocationParameterKeys.ApiKey] = Constants.ParseApiKey
         
         /* 2/3. Build the URL, Configure the request */
-        let request = NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
+        let request = NSMutableURLRequest(url: udacityURLFromParameters(parameters, withPathExtension: method))
         request.HTTPMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -115,6 +115,42 @@ class Client: NSObject {
         task.resume()
         
         return task
+    }
+    
+    // create the Udacity URL from parameters
+    // withPathExtension represents the API method
+    private func udacityURLFromParameters(parameters: [String:AnyObject], withPathExtension: String? = nil) -> NSURL {
+        
+        let components = NSURLComponents()
+        components.scheme = Client.Constants.UdacityApiScheme
+        components.host = Client.Constants.UdacityApiHost
+        components.path = Client.Constants.UdacityApiPath + (withPathExtension ?? "")
+        components.queryItems = [NSURLQueryItem]()
+        
+        for (key, value) in parameters {
+            let queryItem = NSURLQueryItem(name: key, value: "\(value)")
+            components.queryItems!.append(queryItem)
+        }
+        
+        return components.URL!
+    }
+    
+    // create the Parse URL from parameters
+    // withPathExtension represents the API method
+    private func parseURLFromParameters(parameters: [String:AnyObject], withPathExtension: String? = nil) -> NSURL {
+        
+        let components = NSURLComponents()
+        components.scheme = Client.Constants.ParseApiScheme
+        components.host = Client.Constants.ParseApiHost
+        components.path = Client.Constants.ParseApiPath + (withPathExtension ?? "")
+        components.queryItems = [NSURLQueryItem]()
+        
+        for (key, value) in parameters {
+            let queryItem = NSURLQueryItem(name: key, value: "\(value)")
+            components.queryItems!.append(queryItem)
+        }
+        
+        return components.URL!
     }
     
 }
