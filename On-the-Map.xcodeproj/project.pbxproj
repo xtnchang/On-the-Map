@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		381A46B61E10C09300BEA4D4 /* AddLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381A46B51E10C09300BEA4D4 /* AddLinkViewController.swift */; };
+		381A46B81E10D6FC00BEA4D4 /* StudentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381A46B71E10D6FC00BEA4D4 /* StudentInfo.swift */; };
 		3877ECFA1E0A01A900D1BF7A /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3877ECF91E0A01A900D1BF7A /* ListViewController.swift */; };
 		3877ECFC1E0A077500D1BF7A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3877ECFB1E0A077500D1BF7A /* Main.storyboard */; };
 		38FB95C41E072B3300281B50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB95C31E072B3300281B50 /* AppDelegate.swift */; };
@@ -16,7 +18,7 @@
 		38FB95D91E072B3300281B50 /* On_the_MapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB95D81E072B3300281B50 /* On_the_MapTests.swift */; };
 		38FB95E41E072B3300281B50 /* On_the_MapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB95E31E072B3300281B50 /* On_the_MapUITests.swift */; };
 		38FB95F21E073AE100281B50 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB95F11E073AE100281B50 /* MapViewController.swift */; };
-		38FB95F81E073B7000281B50 /* PostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB95F71E073B7000281B50 /* PostingViewController.swift */; };
+		38FB95F81E073B7000281B50 /* AddPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB95F71E073B7000281B50 /* AddPinViewController.swift */; };
 		38FB95FA1E07413E00281B50 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB95F91E07413E00281B50 /* Constants.swift */; };
 		38FB95FC1E07414800281B50 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB95FB1E07414800281B50 /* Client.swift */; };
 		38FB95FE1E07416A00281B50 /* Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB95FD1E07416A00281B50 /* Convenience.swift */; };
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		381A46B51E10C09300BEA4D4 /* AddLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLinkViewController.swift; sourceTree = "<group>"; };
+		381A46B71E10D6FC00BEA4D4 /* StudentInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInfo.swift; sourceTree = "<group>"; };
 		3877ECF91E0A01A900D1BF7A /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		3877ECFB1E0A077500D1BF7A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		38FB95C01E072B3300281B50 /* On-the-Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On-the-Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,7 +59,7 @@
 		38FB95E31E072B3300281B50 /* On_the_MapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = On_the_MapUITests.swift; sourceTree = "<group>"; };
 		38FB95E51E072B3300281B50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38FB95F11E073AE100281B50 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		38FB95F71E073B7000281B50 /* PostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostingViewController.swift; sourceTree = "<group>"; };
+		38FB95F71E073B7000281B50 /* AddPinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPinViewController.swift; sourceTree = "<group>"; };
 		38FB95F91E07413E00281B50 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		38FB95FB1E07414800281B50 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		38FB95FD1E07416A00281B50 /* Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convenience.swift; sourceTree = "<group>"; };
@@ -142,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				38FB95F91E07413E00281B50 /* Constants.swift */,
+				381A46B71E10D6FC00BEA4D4 /* StudentInfo.swift */,
 				38FB95FB1E07414800281B50 /* Client.swift */,
 				38FB95FD1E07416A00281B50 /* Convenience.swift */,
 			);
@@ -161,7 +166,8 @@
 				38FB95C51E072B3300281B50 /* LoginViewController.swift */,
 				38FB95F11E073AE100281B50 /* MapViewController.swift */,
 				3877ECF91E0A01A900D1BF7A /* ListViewController.swift */,
-				38FB95F71E073B7000281B50 /* PostingViewController.swift */,
+				38FB95F71E073B7000281B50 /* AddPinViewController.swift */,
+				381A46B51E10C09300BEA4D4 /* AddLinkViewController.swift */,
 				3877ECFB1E0A077500D1BF7A /* Main.storyboard */,
 			);
 			name = Controller;
@@ -302,11 +308,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				38FB95FA1E07413E00281B50 /* Constants.swift in Sources */,
+				381A46B81E10D6FC00BEA4D4 /* StudentInfo.swift in Sources */,
 				38FB95C61E072B3300281B50 /* LoginViewController.swift in Sources */,
 				38FB95FC1E07414800281B50 /* Client.swift in Sources */,
+				381A46B61E10C09300BEA4D4 /* AddLinkViewController.swift in Sources */,
 				3877ECFA1E0A01A900D1BF7A /* ListViewController.swift in Sources */,
 				38FB95FE1E07416A00281B50 /* Convenience.swift in Sources */,
-				38FB95F81E073B7000281B50 /* PostingViewController.swift in Sources */,
+				38FB95F81E073B7000281B50 /* AddPinViewController.swift in Sources */,
 				38FB95C41E072B3300281B50 /* AppDelegate.swift in Sources */,
 				38FB95F21E073AE100281B50 /* MapViewController.swift in Sources */,
 			);

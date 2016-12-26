@@ -10,6 +10,20 @@ import Foundation
 
 extension Client {
     
+    func getStudentLocation () {
+        
+    }
     
+    func postStudentLocation() {
+        
+    }
+    
+    func postSessionID() {
+        
+    }
+    
+    func getUserID() {
+        
+    }
     
 }

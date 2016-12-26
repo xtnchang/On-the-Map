@@ -111,16 +111,22 @@ class Client: NSObject {
                 return
             }
             
+            let range = Range(uncheckedBounds: (5, data.count - 5))
+            let newData = data.subdata(in: range) /* subset response data! */
+                
+            }
+            
             /* 5/6. Parse the data and use the data (happens in completion handler) */
             self.convertDataWithCompletionHandler(data: data as NSData, completionHandlerForConvertData: completionHandlerForPOST)
-        }
         
-        /* 7. Start the request */
-        task.resume()
+    
+            /* 7. Start the request */
+            task.resume()
         
-        return task
+            return task
     }
     
+
     private func convertDataWithCompletionHandler(data: NSData, completionHandlerForConvertData: (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
         var parsedResult: AnyObject!
@@ -136,11 +142,10 @@ class Client: NSObject {
     
     // MARK: Shared Instance
     
-    class func sharedInstance() -> Client {
+    func sharedInstance() -> Client {
         struct Singleton {
             static var sharedInstance = Client()
         }
         return Singleton.sharedInstance
     }
-    
 }

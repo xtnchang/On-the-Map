@@ -1,15 +1,17 @@
 //
-//  PostingViewController.swift
+//  AddLinkViewController.swift
 //  On-the-Map
 //
-//  Created by Christine Chang on 12/18/16.
+//  Created by Christine Chang on 12/25/16.
 //  Copyright © 2016 Christine Chang. All rights reserved.
 //
 
 import UIKit
 
-class PostingViewController: UIViewController {
-
+class AddLinkViewController: UIViewController {
+    
+    @IBOutlet weak var submit: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
