@@ -1,5 +1,5 @@
 //
-//  Client.swift
+//  UdacityClient.swift
 //  On-the-Map
 //
 //  Created by Christine Chang on 12/18/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Client: NSObject {
+class UdacityClient: NSObject {
 
     // MARK: GET
     
@@ -142,9 +142,9 @@ class Client: NSObject {
     
     // MARK: Shared Instance
     
-    func sharedInstance() -> Client {
+    func sharedInstance() -> UdacityClient {
         struct Singleton {
-            static var sharedInstance = Client()
+            static var sharedInstance = UdacityClient()
         }
         return Singleton.sharedInstance
     }

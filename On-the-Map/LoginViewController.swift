@@ -25,7 +25,7 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBOutlet weak var clickLogin: UIButton!
+    @IBOutlet weak var loginPressed: UIButton!
 
 }
 

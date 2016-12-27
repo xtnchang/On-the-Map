@@ -64,9 +64,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="clickLogin" destination="Ekm-BD-Ug6" id="BgS-fv-U3E"/>
                         <outlet property="email" destination="T3c-wr-hKq" id="s6C-12-sSM"/>
                         <outlet property="login" destination="Ekm-BD-Ug6" id="OfL-su-dFp"/>
+                        <outlet property="loginPressed" destination="Ekm-BD-Ug6" id="Ebj-CL-3pQ"/>
                         <outlet property="password" destination="2Hi-gH-uVv" id="Fsk-Xy-SZX"/>
                     </connections>
                 </viewController>

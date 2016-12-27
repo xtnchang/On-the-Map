@@ -1,5 +1,5 @@
 //
-//  Convenience.swift
+//  UdacityConvenience.swift
 //  On-the-Map
 //
 //  Created by Christine Chang on 12/18/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Client {
+extension UdacityClient {
     
     func getStudentLocation () {
         
