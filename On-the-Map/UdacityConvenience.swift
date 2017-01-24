@@ -9,21 +9,64 @@
 import Foundation
 
 extension UdacityClient {
-    
-    func getStudentLocation () {
+
+    // The HTTP request message body for postSession contains username & password.
+    // The HTTP response message body for postSession contains sessionID.
+    func postSession(username: String, password: String, completionHandlerForSession: @escaping (_ result: String?, _ error: NSError?) -> Void) {
+        
+        let jsonBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: String.Encoding.utf8)
+        
+        taskForPOSTMethod(method: JSONResponseKeys.Session, jsonBody: jsonBody) { (results, error) in
+            
+            if let error = error {
+                completionHandlerForSession(nil, error)
+            } else {
+                if let sessionResults = results[UdacityClient.Session] {
+                    if let sessionID = sessionResults[UdacityClient.ID] {
+                        completionHandlerForSession(result: sessionID, error: nil)
+                    }
+                }
+            } else {
+                completionHandlerForSession(result: nil, error: NSError(domain: "postSession", code: 0, userInfo: [NSLocalizedDescription: "Could not parse session"]))
+            }
+        }
         
     }
     
-    func postStudentLocation() {
+    func deleteSession(completionHandlerForDeleteSession(result: AnyObject?, error: NSError?)) {
+        
+        taskForDELETEMethod(method: JSONResponseKeys.session)
+        { (results, error) in
+            
+            if let error = error {
+                completionHandlerForDeleteSession(nil, error)
+            } else {
+                if let sessionResults = results[UdacityClient.Session] {
+                    if let sessionID = sessionResults[UdacityClient.ID] {
+                        completionHandlerForDeleteSession(result: sessionID, error: nil)
+                    }
+                }
+            } else {
+                completionHandlerForDeleteSession(result: nil, error: NSError(domain: "deleteSession", code: 0, userInfo: [NSLocalizedDescription: "Could not delete session"]))
+            }
+        }
+    }
+    
+    func getUserData(username: String, completionHandlerForUserData(result: AnyObject?, error: NSError?)) {
+        
+        if let error = error {
+            completionHandlerForUserData(nil, error)
+        } else {
+            if let sessionResults = results[UdacityClient.Session] {
+                if let sessionID = sessionResults[UdacityClient.ID] {
+                    completionHandlerForUserData(result: sessionID, error: nil)
+                }
+            }
+        } else {
+            completionHandlerForUserData(result: nil, error: NSError(domain: "postSession", code: 0, userInfo: [NSLocalizedDescription: "Could not parse session"]))
+        }
         
     }
     
-    func postSessionID() {
-        
-    }
-    
-    func getUserID() {
-        
-    }
     
 }
