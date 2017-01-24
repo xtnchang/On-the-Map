@@ -25,7 +25,7 @@ extension UdacityClient {
         static let User = "users/{user_id}"
     }
     
-    // MARK: URL path parameter keys....none for Udacity API
+    // MARK: URL query string parameter keys....none for Udacity API
     
     // MARK: JSON Request Keys (the HTTP message body that the client sends to the server)
     struct JSONRequestKeys {

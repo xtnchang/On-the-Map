@@ -19,7 +19,7 @@ class ParseClient: NSObject {
         
         
         /* 2/3. Build the URL, Configure the request */
-        let urlString = Constants.ParseBaseURL + method + generatePathParameters(parameters: parameter!)
+        let urlString = Constants.ParseBaseURL + method + generatePathParameters(parameters: parameters)
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(url: url as! URL)
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
@@ -137,7 +137,7 @@ class ParseClient: NSObject {
             func sendError(error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
-                completionHandlerForPOST(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
+                completionHandlerForPUT(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
             }
             
             /* GUARD: Was there an error? */

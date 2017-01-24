@@ -27,9 +27,12 @@ extension ParseClient {
         static let StudentLocation = "StudentLocation"
     }
 
-    // MARK: URL path parameter keys
+    // MARK: URL query string parameter keys
     struct ParameterKeys {
-        static let Where = "where"
+        static let Limit = "limit="
+        static let Skip = "skip="
+        static let Order = "order="
+        static let Where = "where="
     }
     
     // MARK: JSON Request Keys (the HTTP message body that the client sends to the server)

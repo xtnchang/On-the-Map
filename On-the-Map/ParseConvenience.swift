@@ -27,9 +27,11 @@ extension ParseClient {
         }
     }
     
+    // Required query string parameter: where=
     func getSingleStudentLocation(completionHandlerForStudentLocation: @escaping (_ result: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
         
-        let parameters = [JSONResponseKeys.UniqueKey: /**How to get the value of unique key?**/]
+        // query string parameters for where=unique_key:1234
+        let parameters = [ParameterKeys.Where + JSONResponseKeys.UniqueKey:self.userID]
         
         taskForGETMethod(method: Methods.StudentLocation, parameters: parameters) { (result?, error?) in
             
