@@ -27,14 +27,14 @@ extension UdacityClient {
     
     // MARK: URL query string parameter keys....none for Udacity API
     
-    // MARK: JSON Request Keys (the HTTP message body that the client sends to the server)
+    // MARK: JSON Request Keys (the HTTP request message that the client sends to the server)
     struct JSONRequestKeys {
         static let Udacity = "udacity"
         static let Username = "username"
         static let Password = "password"
     }
     
-    // MARK: JSON Response Keys (the HTTP message body that the server sends back to us)
+    // MARK: JSON Response Keys (the HTTP response message that the server sends back to us)
     // These keys are found in the Supporting Materials JSON links at the bottom of each page.
     struct JSONResponseKeys {
         static let Account = "account"

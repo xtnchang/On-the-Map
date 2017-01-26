@@ -35,13 +35,13 @@ extension ParseClient {
         static let Where = "where="
     }
     
-    // MARK: JSON Request Keys (the HTTP message body that the client sends to the server)
+    // MARK: JSON Request Keys (the HTTP request message that the client sends to the server)
     struct JSONRequestKeys {
         
         
     }
     
-    // MARK: JSON Response Keys (the HTTP message body that the server sends back to us)
+    // MARK: JSON Response Keys (the HTTP response message that the server sends back to us)
     struct JSONResponseKeys {
         
         static let Results = "results"

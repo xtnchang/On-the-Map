@@ -66,7 +66,7 @@ class UdacityClient: NSObject {
     }
 
     // MARK: POST
-    // No URL parameters required to send requests to server for Udacity API. Only HTTP message body (jsonBody) parameters needed.
+    // No URL parameters required to send requests to server for Udacity API, therefore no 'parameters' parameter needed. Only HTTP request message (jsonBody) parameters needed.
     // jsonBody is the request body. It is an array of dictionaries?
     func taskForPOSTMethod(method: String, jsonBody: Data?, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         

@@ -14,20 +14,21 @@ extension UdacityClient {
     // The HTTP response message body for postSession contains sessionID.
     func postSession(username: String, password: String, completionHandlerForSession: @escaping (_ result: String?, _ error: NSError?) -> Void) {
         
+        // HTTP request message
         let jsonBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: String.Encoding.utf8)
         
-        taskForPOSTMethod(method: JSONResponseKeys.Session, jsonBody: jsonBody) { (results, error) in
+        taskForPOSTMethod(method: Methods.Session, jsonBody: jsonBody) { (results, error) in
             
             if let error = error {
                 completionHandlerForSession(nil, error)
             } else {
-                if let sessionResults = results[UdacityClient.Session] {
-                    if let sessionID = sessionResults[UdacityClient.ID] {
+                if let session = results?[JSONResponseKeys.Session] {
+                    if let sessionID = session[JSONResponseKeys.ID] {
                         completionHandlerForSession(result: sessionID, error: nil)
                     }
                 }
             } else {
-                completionHandlerForSession(result: nil, error: NSError(domain: "postSession", code: 0, userInfo: [NSLocalizedDescription: "Could not parse session"]))
+                completionHandlerForSession(result: nil, error: NSError(domain: "postSession", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse session"]))
             }
         }
         
@@ -54,16 +55,19 @@ extension UdacityClient {
     
     func getUserData(username: String, completionHandlerForUserData(result: AnyObject?, error: NSError?)) {
         
-        if let error = error {
-            completionHandlerForUserData(nil, error)
-        } else {
-            if let sessionResults = results[UdacityClient.Session] {
-                if let sessionID = sessionResults[UdacityClient.ID] {
-                    completionHandlerForUserData(result: sessionID, error: nil)
+        taskForGETMethod(method: Methods.User) { (results, error) in
+            
+            if let error = error {
+                completionHandlerForUserData(nil, error)
+            } else {
+                if let sessionResults = results[JSONResponseKeys.Session] {
+                    if let sessionID = sessionResults[JSONResponseKeys.ID] {
+                        completionHandlerForUserData(result: sessionID, error: nil)
+                    }
                 }
+            } else {
+                completionHandlerForUserData(result: nil, error: NSError(domain: "postSession", code: 0, userInfo: [NSLocalizedDescription: "Could not parse session"]))
             }
-        } else {
-            completionHandlerForUserData(result: nil, error: NSError(domain: "postSession", code: 0, userInfo: [NSLocalizedDescription: "Could not parse session"]))
         }
         
     }

@@ -10,7 +10,7 @@ import Foundation
 
 extension ParseClient {
     
-    // The JSON response (result) for student locations is an array of dictionaries.
+    // The JSON response (result) for GETting all student locations is an array of dictionaries.
     func getStudentLocations(completionHandlerForLocations: @escaping (_ result: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
         
         taskForGETMethod(method: Methods.StudentLocation, parameters: nil) { (result: [[String:AnyObject]], error: NSError) in
@@ -27,7 +27,7 @@ extension ParseClient {
         }
     }
     
-    // Required query string parameter: where=
+    // The JSON response (result) for GETting a student location is an array of dictionaries.
     func getSingleStudentLocation(completionHandlerForStudentLocation: @escaping (_ result: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
         
         // query string parameters for where=unique_key:1234
@@ -47,6 +47,7 @@ extension ParseClient {
         }
     }
     
+    // The JSON response (result) for POSTing a student location is a dictionary.
     func postStudentLocation(uniqueKey: String?, firstName: String?, lastName: String?, mapString: String?, mediaURL: String?, latitude: Int?, longitude: Int?, completionHandlerForPostLocation(result: [String:AnyObject?], error: NSError?)) {
         
         let jsonBody = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}".data(using: String.Encoding.utf8)
@@ -66,6 +67,7 @@ extension ParseClient {
     
     }
     
+    // The JSON response (result) for PUTing a student location is a dictionary.
     func putStudentLocation(uniqueKey: String?, firstName: String?, lastName: String?, mapString: String?, mediaURL: String?, latitude: Int?, longitude: Int?, completionHandlerForPutLocation(result: [String:AnyObject?], error: NSError?)) {
         
         let jsonBody = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}".data(using: String.Encoding.utf8)
