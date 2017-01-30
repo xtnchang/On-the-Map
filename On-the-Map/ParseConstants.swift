@@ -37,8 +37,13 @@ extension ParseClient {
     
     // MARK: JSON Request Keys (the HTTP request message that the client sends to the server)
     struct JSONRequestKeys {
-        
-        
+        static let UniqueKey = "uniqueKey"
+        static let FirstName = "firstName"
+        static let LastName = "lastName"
+        static let MapString = "mapString"
+        static let MediaURL = "mediaURL"
+        static let Latitude = "latitude"
+        static let Longitude = "longitude"
     }
     
     // MARK: JSON Response Keys (the HTTP response message that the server sends back to us)

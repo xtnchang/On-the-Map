@@ -96,6 +96,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		38F43AA41E3A86280036334E /* UdacityClient */ = {
+			isa = PBXGroup;
+			children = (
+				38FB95F91E07413E00281B50 /* UdacityConstants.swift */,
+				38FB95FB1E07414800281B50 /* UdacityClient.swift */,
+				38FB95FD1E07416A00281B50 /* UdacityConvenience.swift */,
+			);
+			name = UdacityClient;
+			sourceTree = "<group>";
+		};
+		38F43AA51E3A86550036334E /* ParseClient */ = {
+			isa = PBXGroup;
+			children = (
+				38270A3E1E22C99700C3598F /* ParseConstants.swift */,
+				381A46B71E10D6FC00BEA4D4 /* StudentInfo.swift */,
+				381A46B91E132C2200BEA4D4 /* ParseClient.swift */,
+				381A46BB1E132C4E00BEA4D4 /* ParseConvenience.swift */,
+			);
+			name = ParseClient;
+			sourceTree = "<group>";
+		};
 		38FB95B71E072B3300281B50 = {
 			isa = PBXGroup;
 			children = (
@@ -151,13 +172,8 @@
 		38FB95F31E073B0C00281B50 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				38FB95F91E07413E00281B50 /* UdacityConstants.swift */,
-				38270A3E1E22C99700C3598F /* ParseConstants.swift */,
-				381A46B71E10D6FC00BEA4D4 /* StudentInfo.swift */,
-				38FB95FB1E07414800281B50 /* UdacityClient.swift */,
-				381A46B91E132C2200BEA4D4 /* ParseClient.swift */,
-				38FB95FD1E07416A00281B50 /* UdacityConvenience.swift */,
-				381A46BB1E132C4E00BEA4D4 /* ParseConvenience.swift */,
+				38F43AA51E3A86550036334E /* ParseClient */,
+				38F43AA41E3A86280036334E /* UdacityClient */,
 			);
 			name = Model;
 			sourceTree = "<group>";

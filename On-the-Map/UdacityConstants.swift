@@ -22,7 +22,7 @@ extension UdacityClient {
     struct Methods {
 
         static let Session = "session"
-        static let User = "users/{user_id}"
+        static let User = "users/"
     }
     
     // MARK: URL query string parameter keys....none for Udacity API
@@ -43,6 +43,7 @@ extension UdacityClient {
         static let Session = "session"
         static let ID = "id"
         static let Expiration = "expiration"
+        static let User = "user"
     }
 }
 

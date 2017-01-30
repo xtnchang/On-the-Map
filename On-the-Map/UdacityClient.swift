@@ -11,7 +11,7 @@ import Foundation
 class UdacityClient: NSObject {
 
     var sessionID : String? = nil
-    var userID : Int? = nil
+    var userID : String? = nil
     
     // MARK: GET
     // No URL parameters required to send requests to server for Udacity API. Only methods are needed. 

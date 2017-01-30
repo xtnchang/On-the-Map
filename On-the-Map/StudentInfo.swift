@@ -9,5 +9,5 @@
 import Foundation
 
 class StudentInfo {
-    var studentInfoArray: [Client.StudentParameterKeys] = []
+  //  var studentInfoArray: [Client.StudentParameterKeys] = []
 }

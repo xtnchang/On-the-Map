@@ -19,58 +19,105 @@ extension UdacityClient {
         
         taskForPOSTMethod(method: Methods.Session, jsonBody: jsonBody) { (results, error) in
             
-            if let error = error {
-                completionHandlerForSession(nil, error)
-            } else {
-                if let session = results?[JSONResponseKeys.Session] {
-                    if let sessionID = session[JSONResponseKeys.ID] {
-                        completionHandlerForSession(result: sessionID, error: nil)
-                    }
-                }
-            } else {
-                completionHandlerForSession(result: nil, error: NSError(domain: "postSession", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse session"]))
+            func sendError(error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey: error]
+                completionHandlerForSession(nil, NSError(domain: "completionHandlerForPOST", code: 1, userInfo: userInfo))
             }
+            
+            guard (error == nil) else {
+                sendError(error: "There was an error with your request: \(error)")
+                return
+            }
+            
+            guard (results != nil) else {
+                sendError(error: "No results were found.")
+                return
+            }
+            
+            guard let account = results?[JSONResponseKeys.Session] as! [String:AnyObject]? else {
+                sendError(error: "No account was found.")
+                return
+            }
+            
+            guard let key = account[JSONResponseKeys.ID] as! String? else {
+                sendError(error: "No key was found.")
+                return
+            }
+            
+            self.userID = key
+            
+            completionHandlerForSession(key, nil)
+
         }
         
     }
     
-    func deleteSession(completionHandlerForDeleteSession(result: AnyObject?, error: NSError?)) {
+    // Any parameters needed for deleteSession?
+    func deleteSession(completionHandlerForDeleteSession: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
-        taskForDELETEMethod(method: JSONResponseKeys.session)
+        taskForDELETEMethod(method: JSONResponseKeys.Session)
         { (results, error) in
             
-            if let error = error {
-                completionHandlerForDeleteSession(nil, error)
-            } else {
-                if let sessionResults = results[UdacityClient.Session] {
-                    if let sessionID = sessionResults[UdacityClient.ID] {
-                        completionHandlerForDeleteSession(result: sessionID, error: nil)
-                    }
-                }
-            } else {
-                completionHandlerForDeleteSession(result: nil, error: NSError(domain: "deleteSession", code: 0, userInfo: [NSLocalizedDescription: "Could not delete session"]))
+            func sendError(error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey: error]
+                completionHandlerForDeleteSession(nil, NSError(domain: "completionHandlerForDELETE", code: 1, userInfo: userInfo))
             }
-        }
-    }
-    
-    func getUserData(username: String, completionHandlerForUserData(result: AnyObject?, error: NSError?)) {
-        
-        taskForGETMethod(method: Methods.User) { (results, error) in
             
-            if let error = error {
-                completionHandlerForUserData(nil, error)
-            } else {
-                if let sessionResults = results[JSONResponseKeys.Session] {
-                    if let sessionID = sessionResults[JSONResponseKeys.ID] {
-                        completionHandlerForUserData(result: sessionID, error: nil)
-                    }
-                }
-            } else {
-                completionHandlerForUserData(result: nil, error: NSError(domain: "postSession", code: 0, userInfo: [NSLocalizedDescription: "Could not parse session"]))
+            guard (error == nil) else {
+                sendError(error: "There was an error with your request: \(error)")
+                return
             }
+            
+            guard (results != nil) else {
+                sendError(error: "No results were found.")
+                return
+            }
+            
+            guard let account = results?[JSONResponseKeys.Session] as! [String:AnyObject]? else {
+                sendError(error: "No account was found.")
+                return
+            }
+            
+            guard let key = account[JSONResponseKeys.ID] else {
+                sendError(error: "No key was found.")
+                return
+            }
+            
+            completionHandlerForDeleteSession(key, nil)
         }
+    }
+
+    func getUserData(completionHandlerForUserData: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
+    
+        taskForGETMethod(method: Methods.User + self.userID!) { (results, error) in
+            
+            func sendError(error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey: error]
+                completionHandlerForUserData(nil, NSError(domain: "completionHandlerForGET", code: 1, userInfo: userInfo))
+            }
+            
+            guard (error == nil) else {
+                sendError(error: "There was an error with your request: \(error)")
+                return
+            }
+            
+            guard (results != nil) else {
+                sendError(error: "No results were found.")
+                return
+            }
+            
+            guard let user = results?[JSONResponseKeys.User] as! [String:AnyObject]? else {
+                sendError(error: "No account was found.")
+                return
+            }
+            
+            completionHandlerForUserData(user as AnyObject?, nil)
+        }
+
         
     }
-    
     
 }
