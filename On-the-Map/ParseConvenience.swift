@@ -7,86 +7,141 @@
 //
 
 import Foundation
+import UIKit 
 
 extension ParseClient {
     
-    // The JSON response (result) for GETting all student locations is an array of dictionaries.
-    func getStudentLocations(completionHandlerForLocations: @escaping (_ result: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
+    // The JSON response (result) for GETting all student locations is a dictionary.
+    func getStudentLocations(completionHandlerForLocations: @escaping (_ result: [String:AnyObject]?, _ error: NSError?) -> Void) {
         
-        taskForGETMethod(method: Methods.StudentLocation, parameters: nil) { (result: [[String:AnyObject]], error: NSError) in
+        // No query string parameters required, since you're not requesting a specific location.
+        taskForGETMethod(method: Methods.StudentLocation, parameters: nil) { (results: AnyObject?, error: NSError?) in
         
-            if let error = error {
-                completionHandlerForLocations(nil, error)
-            } else {
-                if let results = result[JSONResponseKeys.Results] as? [[String:AnyObject]]? {
-                    completionHandlerForLocations(results, nil)
-                }
-            } else {
-                completionHandlerForLocations(result: nil, error: NSError(domain: "getStudentLocations", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse locations"]))
+            func sendError(error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey: error]
+                completionHandlerForLocations(nil, NSError(domain: "completionHandlerForGET", code: 1, userInfo: userInfo))
             }
+            
+            guard (error == nil) else {
+                sendError(error: "There was an error with your request: \(error)")
+                return
+            }
+            
+            guard (results != nil) else {
+                sendError(error: "No results were found.")
+                return
+            }
+            
+            guard let results = results?[JSONResponseKeys.Results] as! [String:AnyObject]? else {
+                sendError(error: "No results were found.")
+                return
+            }
+            
+            completionHandlerForLocations(results, nil)
         }
     }
     
-    // The JSON response (result) for GETting a student location is an array of dictionaries.
-    func getSingleStudentLocation(completionHandlerForStudentLocation: @escaping (_ result: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
+    // The JSON response (result) for GETting a student location is a dictionary.
+    func getSingleStudentLocation(completionHandlerForStudentLocation: @escaping (_ result: [String:AnyObject]?, _ error: NSError?) -> Void) {
         
         // query string parameters for where=unique_key:1234
-        let parameters = [ParameterKeys.Where + JSONResponseKeys.UniqueKey:self.userID]
+        let parameters = ParameterKeys.Where + "%7B%22" + JSONResponseKeys.UniqueKey + "%22%3A%22" + UdacityClient.userID! + "%22%7D"
         
-        taskForGETMethod(method: Methods.StudentLocation, parameters: parameters) { (result?, error?) in
+        taskForGETMethod(method: Methods.StudentLocation, parameters) { (results, error) in
             
-            if let error = error {
-                completionHandlerForStudentLocation(nil, error)
-            } else {
-                if let results = result[JSONResponseKeys.Results] as? [[String:AnyObject]]? {
-                    completionHandlerForStudentLocation(results, nil)
-                }
-            } else {
-                completionHandlerForStudentLocation(result: nil, error: NSError(domain: "getSingleStudentLocation", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse location"]))
+            func sendError(error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey: error]
+                completionHandlerForStudentLocation(nil, NSError(domain: "completionHandlerForGET", code: 1, userInfo: userInfo))
             }
+            
+            guard (error == nil) else {
+                sendError(error: "There was an error with your request: \(error)")
+                return
+            }
+            
+            guard (results != nil) else {
+                sendError(error: "No results were found.")
+                return
+            }
+            
+            guard let results = results?[JSONResponseKeys.Results] as! [String:AnyObject]? else {
+                sendError(error: "No results were found.")
+                return
+            }
+            
+            completionHandlerForStudentLocation(results, nil)
         }
     }
     
     // The JSON response (result) for POSTing a student location is a dictionary.
-    func postStudentLocation(uniqueKey: String?, firstName: String?, lastName: String?, mapString: String?, mediaURL: String?, latitude: Int?, longitude: Int?, completionHandlerForPostLocation(result: [String:AnyObject?], error: NSError?)) {
+    func postStudentLocation(uniqueKey: String?, firstName: String?, lastName: String?, mapString: String?, mediaURL: String?, latitude: Int?, longitude: Int?, completionHandlerForPostLocation: @escaping (_ result: String?, _ error: NSError?) -> Void) {
         
+        // Create JSON request body (String -> Data)
         let jsonBody = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}".data(using: String.Encoding.utf8)
         
-        taskForPOSTMethod(method: Methods.StudentLocation, jsonBody: jsonBody) { (result?, error?) in
+        taskForPOSTMethod(method: Methods.StudentLocation, jsonBody: jsonBody!) { (results, error) in
         
-            if let error = error {
-                completionHandlerForPostLocation(nil, error)
-            } else {
-                if let results = result[JSONResponseKeys.ObjectId] as? String? {
-                    completionHandlerForPostLocation(results, nil)
-                }
-            } else {
-                completionHandlerForPostLocation(result: nil, error: NSError(domain: "getSingleStudentLocation", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse location"]))
+            func sendError(error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey: error]
+                completionHandlerForPostLocation(nil, NSError(domain: "completionHandlerForPOST", code: 1, userInfo: userInfo))
             }
+            
+            guard (error == nil) else {
+                sendError(error: "There was an error with your request: \(error)")
+                return
+            }
+            
+            guard (results != nil) else {
+                sendError(error: "No results were found.")
+                return
+            }
+            
+            guard let results = results?[JSONResponseKeys.ObjectId] as! String? else {
+                sendError(error: "No results were found.")
+                return
+            }
+            
+            self.objectID = results
+
+            completionHandlerForPostLocation(results, nil)
         }
-    
     }
     
     // The JSON response (result) for PUTing a student location is a dictionary.
-    func putStudentLocation(uniqueKey: String?, firstName: String?, lastName: String?, mapString: String?, mediaURL: String?, latitude: Int?, longitude: Int?, completionHandlerForPutLocation(result: [String:AnyObject?], error: NSError?)) {
+    func putStudentLocation(uniqueKey: String?, firstName: String?, lastName: String?, mapString: String?, mediaURL: String?, latitude: Int?, longitude: Int?, completionHandlerForPutLocation: @escaping (_ result: String?
+        , _ error: NSError?) -> Void) {
         
+        // Create JSON request body (String -> Data)
         let jsonBody = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}".data(using: String.Encoding.utf8)
         
-        taskForPOSTMethod(method: Methods.StudentLocation, jsonBody: jsonBody) { (result?, error?) in
+        taskForPUTMethod(method: Methods.StudentLocation, parameters: self.objectId, jsonBody: jsonBody!) { (results, error) in
             
-            if let error = error {
-                completionHandlerForPutLocation(nil, error)
-            } else {
-                if let results = result[JSONResponseKeys.updatedAt] as? String? {
-                    completionHandlerForPutLocation(results, nil)
-                }
-            } else {
-                completionHandlerForPutLocation(result: nil, error: NSError(domain: "getSingleStudentLocation", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse location"]))
+            func sendError(error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey: error]
+                completionHandlerForPutLocation(nil, NSError(domain: "completionHandlerForPUT", code: 1, userInfo: userInfo))
             }
+            
+            guard (error == nil) else {
+                sendError(error: "There was an error with your request: \(error)")
+                return
+            }
+            
+            guard (results != nil) else {
+                sendError(error: "No results were found.")
+                return
+            }
+            
+            guard let results = results?[JSONResponseKeys.UpdatedAt] as! String? else {
+                sendError(error: "No results were found.")
+                return
+            }
+            
+            completionHandlerForPutLocation(results, nil)
         }
     }
-    
-    
-    
     
 }

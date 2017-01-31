@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit 
 
 extension UdacityClient {
 
@@ -110,7 +111,7 @@ extension UdacityClient {
             }
             
             guard let user = results?[JSONResponseKeys.User] as! [String:AnyObject]? else {
-                sendError(error: "No account was found.")
+                sendError(error: "No user was found.")
                 return
             }
             

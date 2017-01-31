@@ -24,7 +24,7 @@ extension ParseClient {
     // MARK: Methods
     struct Methods {
         
-        static let StudentLocation = "StudentLocation"
+        static let StudentLocation = "StudentLocation/"
     }
 
     // MARK: URL query string parameter keys

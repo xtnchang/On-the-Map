@@ -7,19 +7,22 @@
 //
 
 import Foundation
+import UIKit 
 
 
 class ParseClient: NSObject {
 
     var sessionID : String? = nil
-    var userID : Int? = nil
+    var userID : String? = nil
+    var objectID: String? = nil 
     
     // MARK: GET
-    func taskForGETMethod(method: String, parameters: [String: AnyObject]?, completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    // 'parameters' parameter is for query string parameters
+    func taskForGETMethod(method: String, parameters: String?, completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         
         /* 2/3. Build the URL, Configure the request */
-        let urlString = Constants.ParseBaseURL + method + generatePathParameters(parameters: parameters)
+        let urlString = Constants.ParseBaseURL + method + parameters!
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(url: url as! URL)
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
@@ -68,7 +71,7 @@ class ParseClient: NSObject {
     }
     
     // MARK: POST
-    func taskForPOSTMethod(method: String, jsonBody: [String:AnyObject], completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForPOSTMethod(method: String, jsonBody: Data, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 2/3. Build the URL, Configure the request */
         let urlString = Constants.ParseBaseURL + method
@@ -77,6 +80,7 @@ class ParseClient: NSObject {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonBody 
         
         let session = URLSession.shared
         
@@ -119,15 +123,18 @@ class ParseClient: NSObject {
         return task
     }
     
-    func taskForPUTMethod(method: String, jsonBody: [String:AnyObject], completionHandlerForPUT: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    // MARK: PUT
+    // 'parameters' parameter is for {objectId} path parameter
+    func taskForPUTMethod(method: String, parameters: String, jsonBody: Data, completionHandlerForPUT: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 2/3. Build the URL, Configure the request */
-        let urlString = Constants.ParseBaseURL + method
+        let urlString = Constants.ParseBaseURL + method + parameter
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(url: url as! URL)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonBody 
         
         let session = URLSession.shared
         
@@ -188,18 +195,18 @@ class ParseClient: NSObject {
         completionHandlerForParsingJSON(parsedResult as AnyObject?, nil)
     }
     
-    // create a URL from parameters
-    private func generatePathParameters(parameters: [String:AnyObject]) -> String {
-        
-        var pathArray = [String?]()
-        
-        for (key, value) in parameters {
-            let string = "where=" + "\(key)" + "\(value)"
-            pathArray.append(string)
-        }
-        
-        return pathArray.joined(separator: "&")
-    }
+//    // create a URL from parameters
+//    private func generatePathParameters(parameters: [String:AnyObject]) -> String {
+//        
+//        var pathArray = [String?]()
+//        
+//        for (key, value) in parameters {
+//            let string = "where=" + "\(key)" + "\(value)"
+//            pathArray.append(string)
+//        }
+//        
+//        return pathArray.joined(separator: "&")
+//    }
     
     // MARK: Shared Instance
     

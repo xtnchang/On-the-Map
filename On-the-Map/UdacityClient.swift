@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit 
 
 class UdacityClient: NSObject {
 
@@ -14,7 +15,7 @@ class UdacityClient: NSObject {
     var userID : String? = nil
     
     // MARK: GET
-    // No URL parameters required to send requests to server for Udacity API. Only methods are needed. 
+    // No URL path parameters required to send requests to server for Udacity API. Only methods are needed. 
     func taskForGETMethod(method: String, completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         
