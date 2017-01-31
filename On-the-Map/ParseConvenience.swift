@@ -42,8 +42,7 @@ extension ParseClient {
         }
     }
     
-    // The JSON response (result) for GETting a student location is a dictionary.
-    func getSingleStudentLocation(completionHandlerForStudentLocation: @escaping (_ result: [String:AnyObject]?, _ error: NSError?) -> Void) {
+    func getSingleStudentLocation(completionHandlerForStudentLocation: @escaping (_ result: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
         
         // query string parameters for where=unique_key:1234
         let parameters = ParameterKeys.Where + "%7B%22" + JSONResponseKeys.UniqueKey + "%22%3A%22" + UdacityClient.userID! + "%22%7D"
@@ -66,7 +65,8 @@ extension ParseClient {
                 return
             }
             
-            guard let results = results?[JSONResponseKeys.Results] as! [String:AnyObject]? else {
+            // results is an array of dictionaries
+            guard let results = results?[JSONResponseKeys.Results] as! [[String:AnyObject]]? else {
                 sendError(error: "No results were found.")
                 return
             }
@@ -75,7 +75,6 @@ extension ParseClient {
         }
     }
     
-    // The JSON response (result) for POSTing a student location is a dictionary.
     func postStudentLocation(uniqueKey: String?, firstName: String?, lastName: String?, mapString: String?, mediaURL: String?, latitude: Int?, longitude: Int?, completionHandlerForPostLocation: @escaping (_ result: String?, _ error: NSError?) -> Void) {
         
         // Create JSON request body (String -> Data)
@@ -109,8 +108,7 @@ extension ParseClient {
             completionHandlerForPostLocation(results, nil)
         }
     }
-    
-    // The JSON response (result) for PUTing a student location is a dictionary.
+ 
     func putStudentLocation(uniqueKey: String?, firstName: String?, lastName: String?, mapString: String?, mediaURL: String?, latitude: Int?, longitude: Int?, completionHandlerForPutLocation: @escaping (_ result: String?
         , _ error: NSError?) -> Void) {
         
