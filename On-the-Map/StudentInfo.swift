@@ -11,3 +11,8 @@ import Foundation
 class StudentInfo {
     var studentInfoArray: [ParseClient.JSONResponseKeys] = []
 }
+
+
+
+// Create struct to store one student's info (including uniqueKey)
+// Each entry (student) has their own struct
