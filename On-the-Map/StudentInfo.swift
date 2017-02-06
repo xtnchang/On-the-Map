@@ -8,11 +8,43 @@
 
 import Foundation
 
-class StudentInfo {
-    var studentInfoArray: [ParseClient.JSONResponseKeys] = []
+// Each entry (student) is represented by a struct
+struct StudentInfo {
+    
+    // MARK: JSON request keys needed for POSTing a session
+    
+    var createdAt: String
+    var firstName: String
+    var lastName: String
+    var latitude: Int
+    var longitude: Int
+    var mapString: String
+    var mediaURL: String
+    var objectID: String
+    var uniqueKey: String
+    var updatedAt: String
+    
+    
+    // MARK: Initializer (for creating a student instance) that takes a dictionary argument. The dictionary argument is a single student dictionary.
+    // Each of the struct's properties are set by retrieving the appropriate value (element) from the dictionary argument.
+    
+    init(dictionary: [String:AnyObject]) {
+        
+        self.createdAt = dictionary[ParseClient.JSONResponseKeys.CreatedAt] as! String
+        self.firstName = dictionary[ParseClient.JSONResponseKeys.FirstName] as! String
+        self.lastName = dictionary[ParseClient.JSONResponseKeys.LastName] as! String
+        self.latitude = dictionary[ParseClient.JSONResponseKeys.Latitude] as! Int
+        self.longitude = dictionary[ParseClient.JSONResponseKeys.Longitude] as! Int
+        self.mapString = dictionary[ParseClient.JSONResponseKeys.MapString] as! String
+        self.mediaURL = dictionary[ParseClient.JSONResponseKeys.MediaURL] as! String
+        self.objectID = dictionary[ParseClient.JSONResponseKeys.ObjectId] as! String
+        self.uniqueKey = dictionary[ParseClient.JSONResponseKeys.UpdatedAt] as! String
+    }
+    
+    
+    
 }
 
 
 
-// Create struct to store one student's info (including uniqueKey)
-// Each entry (student) has their own struct
+

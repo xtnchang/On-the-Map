@@ -11,7 +11,7 @@ import UIKit
 
 class UdacityClient: NSObject {
 
-    var sessionID : String? = nil
+    var sessionID : String? = nil 
     var userID : String? = nil
     
     // MARK: GET
@@ -53,7 +53,7 @@ class UdacityClient: NSObject {
                 return
             }
             
-            let newData = data.subdata(in: Range(uncheckedBounds: (5, data.count - 5)))
+            let newData = data.subdata(in: Range(uncheckedBounds: (0, data.count - 5)))
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
             // Parse raw JSON and pass values for (result, error) to completionHandlerForParsing.
@@ -108,7 +108,7 @@ class UdacityClient: NSObject {
                 return
             }
    
-            let newData = data.subdata(in: Range(uncheckedBounds: (5, data.count - 5)))
+            let newData = data.subdata(in: Range(uncheckedBounds: (0, data.count - 5)))
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
             self.parseJSONWithCompletionHandler(data: newData as NSData, completionHandlerForParsingJSON: completionHandlerForPOST)
@@ -165,7 +165,7 @@ class UdacityClient: NSObject {
                 return
             }
             
-            let newData = data.subdata(in: Range(uncheckedBounds: (5, data.count - 5)))
+            let newData = data.subdata(in: Range(uncheckedBounds: (0, data.count - 5)))
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
             self.parseJSONWithCompletionHandler(data: newData as NSData, completionHandlerForParsingJSON: completionHandlerForDELETE)

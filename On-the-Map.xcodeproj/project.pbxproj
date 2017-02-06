@@ -110,7 +110,6 @@
 			isa = PBXGroup;
 			children = (
 				38270A3E1E22C99700C3598F /* ParseConstants.swift */,
-				381A46B71E10D6FC00BEA4D4 /* StudentInfo.swift */,
 				381A46B91E132C2200BEA4D4 /* ParseClient.swift */,
 				381A46BB1E132C4E00BEA4D4 /* ParseConvenience.swift */,
 			);
@@ -172,6 +171,7 @@
 		38FB95F31E073B0C00281B50 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				381A46B71E10D6FC00BEA4D4 /* StudentInfo.swift */,
 				38F43AA51E3A86550036334E /* ParseClient */,
 				38F43AA41E3A86280036334E /* UdacityClient */,
 			);
