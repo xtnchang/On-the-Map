@@ -17,7 +17,7 @@ extension ParseClient {
         
         // No query string parameters required, since you're not requesting a specific location.
         // The 'results' parameter is the encompassing data structure type, the "results" dictionary.
-        taskForGETMethod(method: Methods.StudentLocation, parameters: nil) { (results: [String: AnyObject]?, error: NSError?) in
+        taskForGETMethod(method: Methods.StudentLocation, parameters: nil) { (results, error) in
         
             func sendError(error: String) {
                 print(error)
@@ -55,14 +55,14 @@ extension ParseClient {
         }
     }
     
-    // The 'result' parameter is an array of a single dictionary (single student)
+    // The 'result' parameter is an array containing a single dictionary (single student)
     func getSingleStudentLocation(completionHandlerForStudentLocation: @escaping (_ result: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
         
         // query string parameters for where=unique_key:1234
         let parameters = ParameterKeys.Where + "%7B%22" + JSONResponseKeys.UniqueKey + "%22%3A%22" + results?[JSONResponseKeys.UniqueKey] + "%22%7D"
         
         // The 'results' parameter is the "results" dictionary
-        taskForGETMethod(method: Methods.StudentLocation, parameters: parameters) { (results: [String: AnyObject]?, error: NSError?) in
+        taskForGETMethod(method: Methods.StudentLocation, parameters: parameters) { (results, error) in
             
             func sendError(error: String) {
                 print(error)
@@ -96,7 +96,7 @@ extension ParseClient {
         let jsonBody = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}".data(using: String.Encoding.utf8)
         
         // The 'results' parameter is the dictionary with keys createdAt and objectId.
-        taskForPOSTMethod(method: Methods.StudentLocation, jsonBody: jsonBody!) { (results: [String: AnyObject]?, error: NSError?) in
+        taskForPOSTMethod(method: Methods.StudentLocation, jsonBody: jsonBody!) { (results, error) in
         
             func sendError(error: String) {
                 print(error)
@@ -133,7 +133,7 @@ extension ParseClient {
         let jsonBody = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}".data(using: String.Encoding.utf8)
         
         // The 'results' parameter is a dictionary with a single key, updatedAt
-        taskForPUTMethod(method: Methods.StudentLocation, parameters: self.objectId, jsonBody: jsonBody!) { (results: [String: AnyObject]?, error: NSError?) in
+        taskForPUTMethod(method: Methods.StudentLocation, parameters: self.objectID!, jsonBody: jsonBody!) { (results, error) in
             
             func sendError(error: String) {
                 print(error)

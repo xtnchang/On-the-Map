@@ -18,7 +18,7 @@ class ParseClient: NSObject {
     
     // MARK: GET
     // 'parameters' parameter is for query string parameters
-    func taskForGETMethod(method: String, parameters: String?, completionHandlerForGET: @escaping (_ result: [String: AnyObject]?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForGETMethod(method: String, parameters: String?, completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         
         /* 2/3. Build the URL, Configure the request */
@@ -181,7 +181,7 @@ class ParseClient: NSObject {
 
     // given raw JSON, return a usable Foundation object
     // convertDataWithCompletionHandler gets called at the bottom of taskForGETMethod.
-    private func parseJSONWithCompletionHandler(data: NSData, completionHandlerForParsingJSON: (_ result: [String: AnyObject]?, _ error: NSError?) -> Void) {
+    private func parseJSONWithCompletionHandler(data: NSData, completionHandlerForParsingJSON: (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
         var parsedResult: Any
         do {
@@ -192,7 +192,7 @@ class ParseClient: NSObject {
             completionHandlerForParsingJSON(nil, NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
         }
         
-        completionHandlerForParsingJSON(parsedResult as [String: AnyObject]?, nil)
+        completionHandlerForParsingJSON(parsedResult as AnyObject?, nil)
     }
     
 //    // create a URL from parameters
