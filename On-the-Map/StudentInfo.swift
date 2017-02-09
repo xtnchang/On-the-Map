@@ -38,7 +38,8 @@ struct StudentInfo {
         self.mapString = dictionary[ParseClient.JSONResponseKeys.MapString] as! String
         self.mediaURL = dictionary[ParseClient.JSONResponseKeys.MediaURL] as! String
         self.objectID = dictionary[ParseClient.JSONResponseKeys.ObjectId] as! String
-        self.uniqueKey = dictionary[ParseClient.JSONResponseKeys.UpdatedAt] as! String
+        self.uniqueKey = dictionary[ParseClient.JSONResponseKeys.UniqueKey] as! String
+        self.updatedAt = dictionary[ParseClient.JSONResponseKeys.UpdatedAt] as! String
     }
     
     

@@ -57,7 +57,7 @@ class UdacityClient: NSObject {
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
             // Parse raw JSON and pass values for (result, error) to completionHandlerForParsing.
-            self.parseJSONWithCompletionHandler(data: newData as NSData, completionHandlerForParsingJSON: completionHandlerForGET)
+            self.parseJSONWithCompletionHandler(data: newData, completionHandlerForParsingJSON: completionHandlerForGET)
         }
         
         /* 7. Start the request */
@@ -111,7 +111,7 @@ class UdacityClient: NSObject {
             let newData = data.subdata(in: Range(uncheckedBounds: (0, data.count - 5)))
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
-            self.parseJSONWithCompletionHandler(data: newData as NSData, completionHandlerForParsingJSON: completionHandlerForPOST)
+            self.parseJSONWithCompletionHandler(newData, completionHandlerForParsingJSON: completionHandlerForPOST)
             }
     
             /* 7. Start the request */
@@ -168,7 +168,7 @@ class UdacityClient: NSObject {
             let newData = data.subdata(in: Range(uncheckedBounds: (0, data.count - 5)))
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
-            self.parseJSONWithCompletionHandler(data: newData as NSData, completionHandlerForParsingJSON: completionHandlerForDELETE)
+            self.parseJSONWithCompletionHandler(newData, completionHandlerForParsingJSON: completionHandlerForDELETE)
         }
         
         /* 7. Start the request */
@@ -180,18 +180,18 @@ class UdacityClient: NSObject {
 
     // given raw JSON, return a usable Foundation object
     // convertDataWithCompletionHandler gets called at the bottom of taskForGETMethod.
-    private func parseJSONWithCompletionHandler(data: NSData, completionHandlerForParsingJSON: (_ result: AnyObject?, _ error: NSError?) -> Void) {
+    private func parseJSONWithCompletionHandler(_ data: Data, completionHandlerForParsingJSON: (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
-        var parsedResult: Any
+        var parsedResult: AnyObject! = nil
         do {
-            parsedResult = try JSONSerialization.jsonObject(with: (data as NSData) as Data, options: .allowFragments)
+            parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
         } catch {
             let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
             // Pass in arguments for the completionHandler...and then after the parseJSONWithCompletionHandler function is done running, run completionHandlerForParsingJSON
             completionHandlerForParsingJSON(nil, NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
         }
         
-        completionHandlerForParsingJSON(parsedResult as AnyObject?, nil)
+        completionHandlerForParsingJSON(parsedResult, nil)
     }
     
     // MARK: Shared Instance
