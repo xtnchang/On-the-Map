@@ -41,9 +41,10 @@ extension ParseClient {
                 return
             }
             
-            // for loop iterating through each dictionary in the array of dictionaries. Convert each dictionary into a StudentInfo struct.
+            // empty array to be populated with StudentInfo structs
+            var studentInfoArray: [StudentInfo] = []
             
-            var studentInfoArray = [[String:AnyObject]]()
+            // for loop iterating through each dictionary in the array of dictionaries. For each dictionary, create a StudentInfo instance containing the dictionary info.
             
             for dictionary in results! {
                 let studentStruct = StudentInfo(dictionary: dictionary)
@@ -59,7 +60,7 @@ extension ParseClient {
     func getSingleStudentLocation(completionHandlerForStudentLocation: @escaping (_ result: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
         
         // query string parameters for where=unique_key:1234
-        let parameters = ParameterKeys.Where + "%7B%22" + JSONResponseKeys.UniqueKey + "%22%3A%22" + results?[JSONResponseKeys.UniqueKey] + "%22%7D"
+        let parameters = "\(ParameterKeys.Where)%7B%22\(JSONResponseKeys.UniqueKey)%22%3A%22\(UdacityClient.sharedInstance().userID)%22%7D"
         
         // The 'results' parameter is the "results" dictionary
         taskForGETMethod(method: Methods.StudentLocation, parameters: parameters) { (results, error) in

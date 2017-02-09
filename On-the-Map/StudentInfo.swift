@@ -25,7 +25,7 @@ struct StudentInfo {
     var updatedAt: String
     
     
-    // MARK: Initializer (for creating a student instance) that takes a dictionary argument. The dictionary argument is a single student dictionary.
+    // MARK: Initializer (for creating a student instance) that takes a dictionary argument. The dictionary argument is a single student JSON dictionary that get converted to a struct.
     // Each of the struct's properties are set by retrieving the appropriate value (element) from the dictionary argument.
     
     init(dictionary: [String:AnyObject]) {

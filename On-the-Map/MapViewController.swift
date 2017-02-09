@@ -40,8 +40,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func loadStudents() {
-    
-        var annotations = [MKPointAnnotation]()
 
         let locations = StudentInfo.studentInfoArray["latitude"]
         
