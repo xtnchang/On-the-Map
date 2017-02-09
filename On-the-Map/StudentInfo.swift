@@ -42,7 +42,7 @@ struct StudentInfo {
         self.updatedAt = dictionary[ParseClient.JSONResponseKeys.UpdatedAt] as! String
     }
     
-    
+    static var studentInfoArray: [StudentInfo] = []
     
 }
 

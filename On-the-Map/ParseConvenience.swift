@@ -41,8 +41,8 @@ extension ParseClient {
                 return
             }
             
-            // empty array to be populated with StudentInfo structs
-            var studentInfoArray: [StudentInfo] = []
+            // empty array to be populated with StudentInfo structs (stored in StudentInfo.swift)
+            var studentInfoArray = StudentInfo.studentInfoArray
             
             // for loop iterating through each dictionary in the array of dictionaries. For each dictionary, create a StudentInfo instance containing the dictionary info.
             

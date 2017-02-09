@@ -29,20 +29,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
+    // This variable represents the array of student structs which is passed in as an argumennt to the loadStudents function.
+    var studentLocation = StudentInfo.studentInfoArray
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-        
+        loadStudents(studentInfo: studentLocation)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        self.loadStudents()
-    }
-    
-    func loadStudents() {
+    // Pass in an array of StudentInfo structs
+    func loadStudents(studentInfo: [StudentInfo]) {
 
-        let locations = StudentInfo.studentInfoArray["latitude"]
-        
         // We will create an MKPointAnnotation for each dictionary in "locations". The
         // point annotations will be stored in this array, and then provided to the map view.
         var annotations = [MKPointAnnotation]()
@@ -51,24 +49,25 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // to create map annotations. This would be more stylish if the dictionaries were being
         // used to create custom structs. Perhaps StudentLocation structs.
         
-        for location in locations {
+        for student in studentInfo {
             
             // Notice that the float values are being used to create CLLocationDegree values.
             // This is a version of the Double type.
-            let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
-            let long = CLLocationDegrees(dictionary["longitude"] as! Double)
+            let lat = CLLocationDegrees(student.latitude)
+            let long = CLLocationDegrees(student.longitude)
             
             // The lat and long are used to create a CLLocationCoordinates2D instance.
             let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
             
-            let first = dictionary["firstName"] as! String
-            let last = dictionary["lastName"] as! String
-            let mediaURL = dictionary["mediaURL"] as! String
+            let firstName = student.firstName
+            let lastName = student.lastName
+            let mediaURL = student.mediaURL
             
             // Here we create the annotation and set its coordiate, title, and subtitle properties
+            // MKPointAnnotation is the part of the pin (what you want to annotate the map with)
             let annotation = MKPointAnnotation()
             annotation.coordinate = coordinate
-            annotation.title = "\(first) \(last)"
+            annotation.title = "\(firstName) \(lastName)"
             annotation.subtitle = mediaURL
             
             // Finally we place the annotation in an array of annotations.
