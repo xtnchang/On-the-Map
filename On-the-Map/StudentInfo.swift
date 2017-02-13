@@ -42,6 +42,8 @@ struct StudentInfo {
         self.updatedAt = dictionary[ParseClient.JSONResponseKeys.UpdatedAt] as! String
     }
     
+    
+    // Array of StudentInfo structs stored below
     static var studentInfoArray: [StudentInfo] = []
     
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Ich-hy-gZ5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -44,30 +44,53 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Ich-hy-gZ5" kind="show" id="GMi-y2-I3o"/>
+                                    <action selector="loginPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="rKY-zs-3KX"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btp-tS-LGz">
+                                <color key="backgroundColor" red="0.12332026001973062" green="0.68856267151711614" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Sign up">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Debug text label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gA9-lX-h6X" userLabel="Debug text label">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="303" id="LAV-6z-bnu"/>
+                                    <constraint firstAttribute="height" constant="34" id="LGD-he-XJY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.57844344023055816" blue="0.18608101239762909" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="T3c-wr-hKq" firstAttribute="top" secondItem="3dN-BJ-sME" secondAttribute="bottom" constant="30" id="11T-ke-PGh"/>
                             <constraint firstItem="T3c-wr-hKq" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="20" id="28N-8l-Cne"/>
                             <constraint firstItem="2Hi-gH-uVv" firstAttribute="trailing" secondItem="T3c-wr-hKq" secondAttribute="trailing" id="8oV-CI-lnX"/>
+                            <constraint firstItem="btp-tS-LGz" firstAttribute="height" secondItem="Ekm-BD-Ug6" secondAttribute="height" id="Cdf-1a-KsS"/>
+                            <constraint firstItem="btp-tS-LGz" firstAttribute="width" secondItem="Ekm-BD-Ug6" secondAttribute="width" id="FG9-9u-1Lo"/>
                             <constraint firstItem="T3c-wr-hKq" firstAttribute="leading" secondItem="2Hi-gH-uVv" secondAttribute="leading" id="Hqf-zC-gXv"/>
                             <constraint firstItem="Ekm-BD-Ug6" firstAttribute="trailing" secondItem="T3c-wr-hKq" secondAttribute="trailing" id="U55-LS-ZWs"/>
                             <constraint firstAttribute="trailingMargin" secondItem="T3c-wr-hKq" secondAttribute="trailing" constant="20" id="VTD-Kz-gI3"/>
                             <constraint firstItem="3dN-BJ-sME" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="98" id="Xpg-FD-T0G"/>
+                            <constraint firstItem="gA9-lX-h6X" firstAttribute="top" secondItem="btp-tS-LGz" secondAttribute="bottom" constant="23" id="dg7-DR-TZV"/>
+                            <constraint firstItem="gA9-lX-h6X" firstAttribute="centerX" secondItem="btp-tS-LGz" secondAttribute="centerX" id="dha-b7-ibQ"/>
                             <constraint firstItem="Ekm-BD-Ug6" firstAttribute="leading" secondItem="T3c-wr-hKq" secondAttribute="leading" id="fSP-iD-geY"/>
                             <constraint firstItem="3dN-BJ-sME" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="fuq-4L-TUA"/>
                             <constraint firstItem="Ekm-BD-Ug6" firstAttribute="top" secondItem="2Hi-gH-uVv" secondAttribute="bottom" constant="20" id="iWc-iT-oux"/>
                             <constraint firstItem="2Hi-gH-uVv" firstAttribute="top" secondItem="T3c-wr-hKq" secondAttribute="bottom" constant="20" id="oje-lB-Hig"/>
+                            <constraint firstItem="btp-tS-LGz" firstAttribute="top" secondItem="Ekm-BD-Ug6" secondAttribute="bottom" constant="13" id="qLe-Ec-0Gj"/>
+                            <constraint firstItem="btp-tS-LGz" firstAttribute="centerX" secondItem="Ekm-BD-Ug6" secondAttribute="centerX" id="wwq-dD-tJQ"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="debugTextLabel" destination="gA9-lX-h6X" id="Bjh-2j-NhE"/>
                         <outlet property="email" destination="T3c-wr-hKq" id="s6C-12-sSM"/>
-                        <outlet property="login" destination="Ekm-BD-Ug6" id="OfL-su-dFp"/>
-                        <outlet property="loginPressed" destination="Ekm-BD-Ug6" id="Ebj-CL-3pQ"/>
+                        <outlet property="loginButton" destination="Ekm-BD-Ug6" id="LHQ-fM-utg"/>
                         <outlet property="password" destination="2Hi-gH-uVv" id="Fsk-Xy-SZX"/>
+                        <outlet property="signupButton" destination="btp-tS-LGz" id="Dyq-dl-SJz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -160,7 +183,7 @@
         <!--Navigation Controller-->
         <scene sceneID="G8n-hk-wJ8">
             <objects>
-                <navigationController id="Ich-hy-gZ5" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationController" id="Ich-hy-gZ5" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wj3-WY-4YN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

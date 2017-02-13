@@ -29,7 +29,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
-    // This variable represents the array of student structs which is passed in as an argumennt to the loadStudents function.
+    // This variable represents the array of student structs which is passed in as an argument to the loadStudents function. (studentInfoArray is the static var in StudentInfo.swift)
     var studentLocation = StudentInfo.studentInfoArray
     
     override func viewDidLoad() {
@@ -49,6 +49,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // to create map annotations. This would be more stylish if the dictionaries were being
         // used to create custom structs. Perhaps StudentLocation structs.
         
+        // Each student is a studentInfo struct.
         for student in studentInfo {
             
             // Notice that the float values are being used to create CLLocationDegree values.

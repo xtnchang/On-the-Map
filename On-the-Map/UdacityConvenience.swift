@@ -10,7 +10,23 @@ import Foundation
 import UIKit 
 
 extension UdacityClient {
-
+    
+    func authenticateWithViewController(hostViewController: UIViewController, completionHandlerForAuth: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
+        
+        let username = "bob" /** how to get the username? **/
+        let password = "1234" /** how to get the password? **/
+        
+        postSession(username: username, password: password) { (result, error) in
+            
+            if error == nil {
+                completionHandlerForAuth(true, nil)
+            } else {
+                completionHandlerForAuth(false, "Your username or password is incorrect.")
+            }
+                
+        }
+    }
+    
     // The HTTP request message body for postSession contains username & password.
     // The HTTP response message body for postSession contains sessionID.
     func postSession(username: String, password: String, completionHandlerForSession: @escaping (_ result: String?, _ error: NSError?) -> Void) {
