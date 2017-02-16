@@ -28,14 +28,50 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func loginPressed(_ sender: AnyObject) {
-        UdacityClient.sharedInstance().authenticateWithViewController(hostViewController: self) { (success, errorString) in
+        
+        let username = self.email.text!
+        let password = self.password.text!
+        
+        UdacityClient.sharedInstance().postSession(username: username, password: password) { (sessionID, error) in
+            
+            guard error == nil else {
+                self.displayError("Your email or password is incorrect.")
+                return
+            }
+            
+            // check (unwrap) that we have sessionID
+            if let sessionID = sessionID {
+                
+                // load 100 students
+                ParseClient.sharedInstance().getStudentLocations() { (studentLocations, error) in
+                    
+                    guard error == nil else {
+                        self.displayError("Could not load student pins.")
+                        return
+                    }
+                    
+                    // empty array to be populated with StudentInfo structs (stored in StudentInfo.swift)
+                    var studentInfoArray = StudentInfo.studentInfoArray
+                    
+                    // for loop iterating through each dictionary in the array of studentLocation dictionaries. For each dictionary, create a StudentInfo instance containing the dictionary info.
+                    for dictionary in studentLocations! {
+                        let studentStruct = StudentInfo(dictionary: dictionary)
+                        studentInfoArray.append(studentStruct)
+                    }
+                }
+                
+                // go to the next screen
+                var controller = self.storyboard?.instantiateViewController(withIdentifier: "NavigationController")
+                
+                self.present(controller!, animated: true, completion: nil)
+            }
         }
     }
 
-    
     // MARK: Login
     
-    private func completeLogin() {
+    private func successfulLogin() {
+        
         let controller = storyboard!.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
         present(controller, animated: true, completion: nil)
     }
@@ -62,6 +98,6 @@ private extension LoginViewController {
         if let errorString = errorString {
             debugTextLabel.text = errorString
         }
-}
+    }
 }
 

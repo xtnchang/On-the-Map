@@ -134,7 +134,6 @@
                     <connections>
                         <outlet property="enteredLocation" destination="gef-on-nhv" id="eSl-R6-Ssb"/>
                         <outlet property="findLocation" destination="rkB-U4-3Am" id="cw9-Om-pX6"/>
-                        <segue destination="dfF-zf-o4b" kind="show" id="Npd-DU-fjM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="42n-TG-090" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -258,7 +257,6 @@
                     <connections>
                         <segue destination="RGm-3h-Zvk" kind="relationship" relationship="viewControllers" id="lFN-XW-XG1"/>
                         <segue destination="asd-oU-C3b" kind="relationship" relationship="viewControllers" id="KOs-uL-CYi"/>
-                        <segue destination="RoU-hj-Nax" kind="presentation" id="bxs-HY-jQ5"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qo7-I3-EVo" userLabel="First Responder" sceneMemberID="firstResponder"/>

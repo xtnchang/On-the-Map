@@ -11,30 +11,22 @@ import UIKit
 
 extension UdacityClient {
     
-    func authenticateWithViewController(hostViewController: UIViewController, completionHandlerForAuth: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
-        
-        let username = "bob" /** how to get the username? **/
-        let password = "1234" /** how to get the password? **/
-        
-        postSession(username: username, password: password) { (result, error) in
-            
-            if error == nil {
-                completionHandlerForAuth(true, nil)
-            } else {
-                completionHandlerForAuth(false, "Your username or password is incorrect.")
-            }
-                
-        }
-    }
+//    func loginToUdacity (email:String, password:String, completionHandlerForLogin: @escaping (_ success:Bool, _ errorString:String) -> Void) {
+//        // TODO: Build the request body, 
+//        //   where httpMethod = "POST"
+//        //       httpBody  contains the email and password embedded in the dictioary
+//        // TODO: call postForSesion
+//        
+//    }
     
     // The HTTP request message body for postSession contains username & password.
     // The HTTP response message body for postSession contains sessionID.
-    func postSession(username: String, password: String, completionHandlerForSession: @escaping (_ result: String?, _ error: NSError?) -> Void) {
+    func postSession(username: String, password: String, completionHandlerForSession: @escaping (_ sessionID: String?, _ error: NSError?) -> Void) {
         
         // HTTP request message
         let jsonBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: String.Encoding.utf8)
         
-        taskForPOSTMethod(method: Methods.Session, jsonBody: jsonBody) { (results, error) in
+        taskForPOSTMethod(method: Methods.Session, jsonBody: jsonBody) { (parsedResult, error) in
             
             func sendError(error: String) {
                 print(error)
@@ -47,34 +39,45 @@ extension UdacityClient {
                 return
             }
             
-            guard (results != nil) else {
+            guard (parsedResult != nil) else {
                 sendError(error: "No results were found.")
                 return
             }
             
-            guard let account = results?[JSONResponseKeys.Session] as! [String:AnyObject]? else {
+            guard let account = parsedResult?[JSONResponseKeys.Account] as! [String:AnyObject]? else {
                 sendError(error: "No account was found.")
                 return
             }
             
-            guard let key = account[JSONResponseKeys.ID] as! String? else {
+            guard let key = account[JSONResponseKeys.Key] as! String? else {
                 sendError(error: "No key was found.")
                 return
             }
             
+            // set the userID (unique key)
             self.userID = key
             
-            completionHandlerForSession(key, nil)
+            guard let session = parsedResult?[JSONResponseKeys.Session] as! [String:AnyObject]? else {
+                sendError(error: "No session was found.")
+                return
+            }
+            
+            guard let sessionID = session[JSONResponseKeys.ID] as! String? else {
+                sendError(error: "No session ID was found.")
+                return
+            }
+            
+            completionHandlerForSession(sessionID, nil)
 
         }
         
     }
     
     // Any parameters needed for deleteSession?
-    func deleteSession(completionHandlerForDeleteSession: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
+    func deleteSession(completionHandlerForDeleteSession: @escaping (_ sessionID: AnyObject?, _ error: NSError?) -> Void) {
         
         taskForDELETEMethod(method: JSONResponseKeys.Session)
-        { (results, error) in
+        { (parsedResult, error) in
             
             func sendError(error: String) {
                 print(error)
@@ -87,28 +90,28 @@ extension UdacityClient {
                 return
             }
             
-            guard (results != nil) else {
+            guard (parsedResult != nil) else {
                 sendError(error: "No results were found.")
                 return
             }
             
-            guard let account = results?[JSONResponseKeys.Session] as! [String:AnyObject]? else {
+            guard let session = parsedResult?[JSONResponseKeys.Session] as! [String:AnyObject]? else {
                 sendError(error: "No account was found.")
                 return
             }
             
-            guard let key = account[JSONResponseKeys.ID] else {
+            guard let sessionID = session[JSONResponseKeys.ID] else {
                 sendError(error: "No key was found.")
                 return
             }
             
-            completionHandlerForDeleteSession(key, nil)
+            completionHandlerForDeleteSession(sessionID, nil)
         }
     }
 
     func getUserData(completionHandlerForUserData: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
     
-        taskForGETMethod(method: Methods.User + self.userID!) { (results, error) in
+        taskForGETMethod(method: Methods.User + self.userID!) { (parsedResult, error) in
             
             func sendError(error: String) {
                 print(error)
@@ -121,12 +124,12 @@ extension UdacityClient {
                 return
             }
             
-            guard (results != nil) else {
+            guard (parsedResult != nil) else {
                 sendError(error: "No results were found.")
                 return
             }
             
-            guard let user = results?[JSONResponseKeys.User] as! [String:AnyObject]? else {
+            guard let user = parsedResult?[JSONResponseKeys.User] as! [String:AnyObject]? else {
                 sendError(error: "No user was found.")
                 return
             }

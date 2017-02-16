@@ -18,7 +18,7 @@ class ParseClient: NSObject {
     
     // MARK: GET
     // 'parameters' parameter is for query string parameters
-    func taskForGETMethod(method: String, parameters: String?, completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForGETMethod(method: String, parameters: String?, completionHandlerForGET: @escaping (_ parsedResult: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         
         /* 2/3. Build the URL, Configure the request */
@@ -71,7 +71,7 @@ class ParseClient: NSObject {
     }
     
     // MARK: POST
-    func taskForPOSTMethod(method: String, jsonBody: Data?, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForPOSTMethod(method: String, jsonBody: Data?, completionHandlerForPOST: @escaping (_ prasedResult: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 2/3. Build the URL, Configure the request */
         let urlString = Constants.ParseBaseURL + method
@@ -125,7 +125,7 @@ class ParseClient: NSObject {
     
     // MARK: PUT
     // 'parameters' parameter is for {objectId} path parameter
-    func taskForPUTMethod(method: String, parameters: String, jsonBody: Data?, completionHandlerForPUT: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForPUTMethod(method: String, parameters: String, jsonBody: Data?, completionHandlerForPUT: @escaping (_ parsedResult: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 2/3. Build the URL, Configure the request */
         let urlString = Constants.ParseBaseURL + method + parameters

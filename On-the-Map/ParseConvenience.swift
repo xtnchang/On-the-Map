@@ -13,11 +13,11 @@ extension ParseClient {
     
     // The JSON response (result) for GETting all student locations is a dictionary.
     // The 'result' parameter is an array of dictionaries (each dictionary is a student)
-    func getStudentLocations(completionHandlerForLocations: @escaping (_ result: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
+    func getStudentLocations(completionHandlerForLocations: @escaping (_ studentLocations: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
         
         // No query string parameters required, since you're not requesting a specific location.
         // The 'results' parameter is the encompassing data structure type, the "results" dictionary.
-        taskForGETMethod(method: Methods.StudentLocation, parameters: nil) { (results, error) in
+        taskForGETMethod(method: Methods.StudentLocation, parameters: nil) { (parsedResult, error) in
         
             func sendError(error: String) {
                 print(error)
@@ -30,40 +30,29 @@ extension ParseClient {
                 return
             }
             
-            guard (results != nil) else {
+            guard (parsedResult != nil) else {
                 sendError(error: "No results were found.")
                 return
             }
             
-            // 'results' on the left is a new constant, 'results?' on the right refers to the closure argument.
-            guard let results = results?[JSONResponseKeys.Results] as? [[String:AnyObject]]? else {
+            guard let studentLocations = parsedResult?[JSONResponseKeys.Results] as? [[String:AnyObject]]? else {
                 sendError(error: "No results were found.")
                 return
             }
             
-            // empty array to be populated with StudentInfo structs (stored in StudentInfo.swift)
-            var studentInfoArray = StudentInfo.studentInfoArray
-            
-            // for loop iterating through each dictionary in the array of dictionaries. For each dictionary, create a StudentInfo instance containing the dictionary info.
-            
-            for dictionary in results! {
-                let studentStruct = StudentInfo(dictionary: dictionary)
-                studentInfoArray.append(studentStruct)
-            }
-            
-            completionHandlerForLocations(results, nil)
+            completionHandlerForLocations(studentLocations, nil)
                
         }
     }
     
     // The 'result' parameter is an array containing a single dictionary (single student)
-    func getSingleStudentLocation(completionHandlerForStudentLocation: @escaping (_ result: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
+    func getSingleStudentLocation(completionHandlerForStudentLocation: @escaping (_ studentLocation: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
         
         // query string parameters for where=unique_key:1234
         let parameters = "\(ParameterKeys.Where)%7B%22\(JSONResponseKeys.UniqueKey)%22%3A%22\(UdacityClient.sharedInstance().userID)%22%7D"
         
         // The 'results' parameter is the "results" dictionary
-        taskForGETMethod(method: Methods.StudentLocation, parameters: parameters) { (results, error) in
+        taskForGETMethod(method: Methods.StudentLocation, parameters: parameters) { (parsedResult, error) in
             
             func sendError(error: String) {
                 print(error)
@@ -76,28 +65,28 @@ extension ParseClient {
                 return
             }
             
-            guard (results != nil) else {
+            guard (parsedResult != nil) else {
                 sendError(error: "No results were found.")
                 return
             }
             
-            guard let results = results?[JSONResponseKeys.Results] as? [[String: AnyObject]] else {
+            guard let studentLocation = parsedResult?[JSONResponseKeys.Results] as? [[String: AnyObject]] else {
                 sendError(error: "No results were found.")
                 return
             }
             
-            completionHandlerForStudentLocation(results, nil)
+            completionHandlerForStudentLocation(studentLocation, nil)
         }
     }
     
     // The 'result' parameter is the string value for either "objectId" or "createdAt"
-    func postStudentLocation(uniqueKey: String?, firstName: String?, lastName: String?, mapString: String?, mediaURL: String?, latitude: Int?, longitude: Int?, completionHandlerForPostLocation: @escaping (_ result: String?, _ error: NSError?) -> Void) {
+    func postStudentLocation(uniqueKey: String?, firstName: String?, lastName: String?, mapString: String?, mediaURL: String?, latitude: Int?, longitude: Int?, completionHandlerForPostLocation: @escaping (_ objectID: String?, _ error: NSError?) -> Void) {
         
         // Create JSON request body (String -> Data)
         let jsonBody = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}".data(using: String.Encoding.utf8)
         
         // The 'results' parameter is the dictionary with keys createdAt and objectId.
-        taskForPOSTMethod(method: Methods.StudentLocation, jsonBody: jsonBody!) { (results, error) in
+        taskForPOSTMethod(method: Methods.StudentLocation, jsonBody: jsonBody!) { (parsedResult, error) in
         
             func sendError(error: String) {
                 print(error)
@@ -110,31 +99,30 @@ extension ParseClient {
                 return
             }
             
-            guard (results != nil) else {
+            guard (parsedResult != nil) else {
                 sendError(error: "No results were found.")
                 return
             }
             
-            guard let results = results?[JSONResponseKeys.ObjectId] as! String? else {
+            guard let objectID = parsedResult?[JSONResponseKeys.ObjectId] as! String? else {
                 sendError(error: "No results were found.")
                 return
             }
             
-            self.objectID = results
+            self.objectID = objectID
 
-            completionHandlerForPostLocation(results, nil)
+            completionHandlerForPostLocation(objectID, nil)
         }
     }
  
     // The 'result' parameter is the string value for either "updatedAt"
-    func putStudentLocation(uniqueKey: String?, firstName: String?, lastName: String?, mapString: String?, mediaURL: String?, latitude: Int?, longitude: Int?, completionHandlerForPutLocation: @escaping (_ result: String?
-        , _ error: NSError?) -> Void) {
+    func putStudentLocation(uniqueKey: String?, firstName: String?, lastName: String?, mapString: String?, mediaURL: String?, latitude: Int?, longitude: Int?, completionHandlerForPutLocation: @escaping (_ updatedAt: String?, _ error: NSError?) -> Void) {
         
         // Create JSON request body (String -> Data)
         let jsonBody = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}".data(using: String.Encoding.utf8)
         
         // The 'results' parameter is a dictionary with a single key, updatedAt
-        taskForPUTMethod(method: Methods.StudentLocation, parameters: self.objectID!, jsonBody: jsonBody!) { (results, error) in
+        taskForPUTMethod(method: Methods.StudentLocation, parameters: self.objectID!, jsonBody: jsonBody!) { (parsedResult, error) in
             
             func sendError(error: String) {
                 print(error)
@@ -147,17 +135,17 @@ extension ParseClient {
                 return
             }
             
-            guard (results != nil) else {
+            guard (parsedResult != nil) else {
                 sendError(error: "No results were found.")
                 return
             }
             
-            guard let results = results?[JSONResponseKeys.UpdatedAt] as! String? else {
+            guard let updatedAt = parsedResult?[JSONResponseKeys.UpdatedAt] as! String? else {
                 sendError(error: "No results were found.")
                 return
             }
             
-            completionHandlerForPutLocation(results, nil)
+            completionHandlerForPutLocation(updatedAt, nil)
         }
     }
     

@@ -16,7 +16,7 @@ class UdacityClient: NSObject {
     
     // MARK: GET
     // No URL path parameters required to send requests to server for Udacity API. Only methods are needed. 
-    func taskForGETMethod(method: String, completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForGETMethod(method: String, completionHandlerForGET: @escaping (_ parsedResult: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         
         /* 2/3. Build the URL, Configure the request */
@@ -69,7 +69,7 @@ class UdacityClient: NSObject {
     // MARK: POST
     // No URL parameters required to send requests to server for Udacity API, therefore no 'parameters' parameter needed. Only HTTP request message (jsonBody) parameters needed.
     // jsonBody is the request body. It is an array of dictionaries?
-    func taskForPOSTMethod(method: String, jsonBody: Data?, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForPOSTMethod(method: String, jsonBody: Data?, completionHandlerForPOST: @escaping (_ parsedResult: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 2/3. Build the URL, Configure the request */
         let urlString = Constants.UdacityBaseURL + method
@@ -120,7 +120,7 @@ class UdacityClient: NSObject {
             return task
     }
     
-    func taskForDELETEMethod(method: String, completionHandlerForDELETE: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForDELETEMethod(method: String, completionHandlerForDELETE: @escaping (_ parsedResult: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 2/3. Build the URL, Configure the request */
         let urlString = Constants.UdacityBaseURL + method
@@ -180,7 +180,7 @@ class UdacityClient: NSObject {
 
     // given raw JSON, return a usable Foundation object
     // convertDataWithCompletionHandler gets called at the bottom of taskForGETMethod.
-    private func parseJSONWithCompletionHandler(_ data: Data, completionHandlerForParsingJSON: (_ result: AnyObject?, _ error: NSError?) -> Void) {
+    private func parseJSONWithCompletionHandler(_ data: Data, completionHandlerForParsingJSON: (_ parsedResult: AnyObject?, _ error: NSError?) -> Void) {
         
         var parsedResult: AnyObject! = nil
         do {
