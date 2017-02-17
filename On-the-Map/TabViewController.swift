@@ -16,20 +16,34 @@ class TabViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        loadStudentLocations()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func loadStudentLocations() {
+        // load student pins
+        ParseClient.sharedInstance().getStudentLocations() { (studentLocations, error) in
+            
+            guard error == nil else {
+                print("error")
+                return
+            }
+            
+            // empty array to be populated with StudentInfo structs (stored in StudentInfo.swift)
+            var studentInfoArray = StudentInfo.studentInfoArray
+            
+            // for loop iterating through each dictionary in the array of studentLocation dictionaries. For each dictionary, create a StudentInfo instance containing the dictionary info.
+            for dictionary in studentLocations! {
+                let studentStruct = StudentInfo(dictionary: dictionary)
+                studentInfoArray.append(studentStruct)
+            }
+        }
     }
-    */
 
 }

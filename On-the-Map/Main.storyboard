@@ -30,7 +30,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Hi-gH-uVv">
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T3c-wr-hKq">
                                 <nil key="textColor"/>
@@ -53,16 +53,10 @@
                                 <state key="normal" title="Sign up">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="signUpPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="xKm-VC-vwd"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Debug text label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gA9-lX-h6X" userLabel="Debug text label">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="303" id="LAV-6z-bnu"/>
-                                    <constraint firstAttribute="height" constant="34" id="LGD-he-XJY"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.57844344023055816" blue="0.18608101239762909" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -75,8 +69,6 @@
                             <constraint firstItem="Ekm-BD-Ug6" firstAttribute="trailing" secondItem="T3c-wr-hKq" secondAttribute="trailing" id="U55-LS-ZWs"/>
                             <constraint firstAttribute="trailingMargin" secondItem="T3c-wr-hKq" secondAttribute="trailing" constant="20" id="VTD-Kz-gI3"/>
                             <constraint firstItem="3dN-BJ-sME" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="98" id="Xpg-FD-T0G"/>
-                            <constraint firstItem="gA9-lX-h6X" firstAttribute="top" secondItem="btp-tS-LGz" secondAttribute="bottom" constant="23" id="dg7-DR-TZV"/>
-                            <constraint firstItem="gA9-lX-h6X" firstAttribute="centerX" secondItem="btp-tS-LGz" secondAttribute="centerX" id="dha-b7-ibQ"/>
                             <constraint firstItem="Ekm-BD-Ug6" firstAttribute="leading" secondItem="T3c-wr-hKq" secondAttribute="leading" id="fSP-iD-geY"/>
                             <constraint firstItem="3dN-BJ-sME" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="fuq-4L-TUA"/>
                             <constraint firstItem="Ekm-BD-Ug6" firstAttribute="top" secondItem="2Hi-gH-uVv" secondAttribute="bottom" constant="20" id="iWc-iT-oux"/>
@@ -86,11 +78,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="debugTextLabel" destination="gA9-lX-h6X" id="Bjh-2j-NhE"/>
                         <outlet property="email" destination="T3c-wr-hKq" id="s6C-12-sSM"/>
                         <outlet property="loginButton" destination="Ekm-BD-Ug6" id="LHQ-fM-utg"/>
                         <outlet property="password" destination="2Hi-gH-uVv" id="Fsk-Xy-SZX"/>
-                        <outlet property="signupButton" destination="btp-tS-LGz" id="Dyq-dl-SJz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -195,6 +185,38 @@
             </objects>
             <point key="canvasLocation" x="839" y="36"/>
         </scene>
+        <!--Sign Up View Controller-->
+        <scene sceneID="puw-q3-tSE">
+            <objects>
+                <viewController storyboardIdentifier="SignUpViewController" id="9SP-Kx-FDN" customClass="SignUpViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qDk-de-7GX"/>
+                        <viewControllerLayoutGuide type="bottom" id="L6E-Js-0oO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eO0-JT-NL0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OAL-wB-ff5">
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OAL-wB-ff5" firstAttribute="top" secondItem="qDk-de-7GX" secondAttribute="bottom" id="4Nv-0I-EyN"/>
+                            <constraint firstItem="L6E-Js-0oO" firstAttribute="top" secondItem="OAL-wB-ff5" secondAttribute="bottom" constant="100" id="I2M-3L-10C"/>
+                            <constraint firstItem="OAL-wB-ff5" firstAttribute="trailing" secondItem="eO0-JT-NL0" secondAttribute="trailingMargin" id="Mfm-pZ-qho"/>
+                            <constraint firstItem="OAL-wB-ff5" firstAttribute="leading" secondItem="eO0-JT-NL0" secondAttribute="leadingMargin" id="arW-PR-vvM"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="OAL-wB-ff5" id="T0Y-Cr-WsB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fiD-LY-wMd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="847" y="730"/>
+        </scene>
         <!--List-->
         <scene sceneID="xer-Jz-BEc">
             <objects>
@@ -242,10 +264,10 @@
             </objects>
             <point key="canvasLocation" x="2549.5999999999999" y="-301.79910044977515"/>
         </scene>
-        <!--On the Map-->
+        <!--Tab View Controller-->
         <scene sceneID="sgA-pO-jPl">
             <objects>
-                <tabBarController id="lf3-AK-E9b" sceneMemberID="viewController">
+                <tabBarController id="lf3-AK-E9b" userLabel="Tab View Controller" customClass="TaabViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="On the Map" id="9up-4C-GGu">
                         <barButtonItem key="leftBarButtonItem" image="pin" id="OGq-zk-v97"/>
                     </navigationItem>

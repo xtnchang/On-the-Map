@@ -11,17 +11,9 @@ import UIKit
 
 extension UdacityClient {
     
-//    func loginToUdacity (email:String, password:String, completionHandlerForLogin: @escaping (_ success:Bool, _ errorString:String) -> Void) {
-//        // TODO: Build the request body, 
-//        //   where httpMethod = "POST"
-//        //       httpBody  contains the email and password embedded in the dictioary
-//        // TODO: call postForSesion
-//        
-//    }
-    
     // The HTTP request message body for postSession contains username & password.
     // The HTTP response message body for postSession contains sessionID.
-    func postSession(username: String, password: String, completionHandlerForSession: @escaping (_ sessionID: String?, _ error: NSError?) -> Void) {
+    func postSession(username: String, password: String, completionHandlerForSession: @escaping (_ success: Bool, _ sessionID: String?, _ error: NSError?) -> Void) {
         
         // HTTP request message
         let jsonBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: String.Encoding.utf8)
@@ -31,7 +23,7 @@ extension UdacityClient {
             func sendError(error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey: error]
-                completionHandlerForSession(nil, NSError(domain: "completionHandlerForPOST", code: 1, userInfo: userInfo))
+                completionHandlerForSession(false, nil, NSError(domain: "completionHandlerForPOST", code: 1, userInfo: userInfo))
             }
             
             guard (error == nil) else {
@@ -67,7 +59,7 @@ extension UdacityClient {
                 return
             }
             
-            completionHandlerForSession(sessionID, nil)
+            completionHandlerForSession(true, sessionID, nil)
 
         }
         
