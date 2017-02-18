@@ -30,12 +30,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     
     // This variable represents the array of student structs which is passed in as an argument to the loadStudents function. (studentInfoArray is the static var in StudentInfo.swift)
-    var studentLocation = StudentInfo.studentInfoArray
+    var studentLocations = StudentInfo.studentInfoArray
     
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-        loadStudents(studentInfo: studentLocation)
+        loadStudents(studentInfo: studentLocations)
     }
     
     // Pass in an array of StudentInfo structs
