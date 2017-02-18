@@ -25,17 +25,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // The map. See the setup in the Storyboard file. Note particularly that the view controller
     // is set up as the map view's delegate.
-
     
     @IBOutlet weak var mapView: MKMapView!
     
-    // This variable represents the array of student structs which is passed in as an argument to the loadStudents function. (studentInfoArray is the static var in StudentInfo.swift)
-    var studentLocations = StudentInfo.studentInfoArray
+    // This variable represents the array of student structs [StudentInfo] which is passed in as an argument to the loadStudents function. (arrayOfStudentStructs is the static var in StudentInfo.swift)
+    var studentInfoArrayToLoad = StudentInfo.arrayOfStudentStructs
     
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-        loadStudents(studentInfo: studentLocations)
+        loadStudents(studentInfo: studentInfoArrayToLoad)
     }
     
     // Pass in an array of StudentInfo structs
@@ -94,7 +93,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
-            pinView!.pinColor = .red
+            pinView!.pinTintColor = .red
             pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
         else {

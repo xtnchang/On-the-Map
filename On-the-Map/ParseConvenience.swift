@@ -13,7 +13,7 @@ extension ParseClient {
     
     // The JSON response (result) for GETting all student locations is a dictionary.
     // The 'result' parameter is an array of dictionaries (each dictionary is a student)
-    func getStudentLocations(completionHandlerForLocations: @escaping (_ studentLocations: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
+    func getStudentLocations(completionHandlerForLocations: @escaping (_ success: Bool, _ studentLocations: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
         
         // No query string parameters required, since you're not requesting a specific location.
         // The 'results' parameter is the encompassing data structure type, the "results" dictionary.
@@ -22,7 +22,7 @@ extension ParseClient {
             func sendError(error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey: error]
-                completionHandlerForLocations(nil, NSError(domain: "completionHandlerForGET", code: 1, userInfo: userInfo))
+                completionHandlerForLocations(false, nil, NSError(domain: "completionHandlerForGET", code: 1, userInfo: userInfo))
             }
             
             guard (error == nil) else {
@@ -40,7 +40,7 @@ extension ParseClient {
                 return
             }
             
-            completionHandlerForLocations(studentLocations, nil)
+            completionHandlerForLocations(true, studentLocations, nil)
                
         }
     }

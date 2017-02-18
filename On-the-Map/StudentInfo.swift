@@ -27,6 +27,7 @@ struct StudentInfo {
     
     // MARK: Initializer (for creating a student instance) that takes a dictionary argument. The dictionary argument is a single student JSON dictionary that get converted to a struct.
     // Each of the struct's properties are set by retrieving the appropriate value (element) from the dictionary argument.
+    // To initialize: StudentInfo(dictionary:[createdAt: "2-18", firstName: "Jane"...])
     
     init(dictionary: [String:AnyObject]) {
         
@@ -44,7 +45,7 @@ struct StudentInfo {
     
     
     // Array of StudentInfo structs stored below
-    static var studentInfoArray: [StudentInfo] = []
+    static var arrayOfStudentStructs: [StudentInfo] = []
     
 }
 

@@ -9,7 +9,7 @@
 import UIKit
 
 class TabViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,24 +26,44 @@ class TabViewController: UIViewController {
     }
     
 
+    // Load student locations in both the map view and thable view.
     func loadStudentLocations() {
-        // load student pins
-        ParseClient.sharedInstance().getStudentLocations() { (studentLocations, error) in
+        
+        // studentLocations is an array of dictionaries
+        ParseClient.sharedInstance().getStudentLocations() { (success, studentLocations, error) in
             
-            guard error == nil else {
-                print("error")
-                return
-            }
-            
-            // empty array to be populated with StudentInfo structs (stored in StudentInfo.swift)
-            var studentInfoArray = StudentInfo.studentInfoArray
-            
-            // for loop iterating through each dictionary in the array of studentLocation dictionaries. For each dictionary, create a StudentInfo instance containing the dictionary info.
-            for dictionary in studentLocations! {
-                let studentStruct = StudentInfo(dictionary: dictionary)
-                studentInfoArray.append(studentStruct)
+            performUIUpdatesOnMain {
+                if success {
+                    // empty array to be populated with StudentInfo structs (stored in StudentInfo.swift)
+                    var studentInfoArray = StudentInfo.arrayOfStudentStructs
+                    
+                    // Convert each student dictionary (parsed JSON) to a StudentInfo struct.
+                    for student in studentLocations! {
+                        let studentStruct = StudentInfo(dictionary: student)
+                        studentInfoArray.append(studentStruct)
+                    }
+                    
+                    let mapVC = MapViewController()
+                    mapVC.studentInfoArrayToLoad = studentInfoArray
+                    mapVC.loadStudents(studentInfo: studentInfoArray)
+                    
+                    let listVC = ListViewController()
+                    listVC.studentInfoArrayToLoad = studentInfoArray
+                    
+                } else {
+                    self.showErrorAlert()
+                }
             }
         }
     }
 
+}
+
+private extension TabViewController {
+    
+    func showErrorAlert() {
+        let alert = UIAlertController(title: "Alert", message: "Failed to download student pins", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }

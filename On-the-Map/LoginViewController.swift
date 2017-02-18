@@ -35,7 +35,7 @@ class LoginViewController: UIViewController {
                 if success {
                     self.completeLogin()
                 } else {
-                self.displayError()
+                self.showErrorAlert()
                 }
             }
         }
@@ -61,7 +61,7 @@ class LoginViewController: UIViewController {
 
 private extension LoginViewController {
     
-    func displayError() {
+    func showErrorAlert() {
         let alert = UIAlertController(title: "Alert", message: "Your email or password is incorrect", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
