@@ -85,7 +85,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="21.600000000000001" y="36.431784107946029"/>
+            <point key="canvasLocation" x="82" y="36"/>
         </scene>
         <!--Add Pin View Controller-->
         <scene sceneID="qcU-6B-87C">
@@ -117,6 +117,9 @@
                                 <frame key="frameInset" minX="132" minY="318" width="111" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Find on the map"/>
+                                <connections>
+                                    <segue destination="dfF-zf-o4b" kind="presentation" id="Fkt-5o-KKm"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -128,7 +131,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="42n-TG-090" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3286" y="2"/>
+            <point key="canvasLocation" x="3292" y="54"/>
         </scene>
         <!--Add Link View Controller-->
         <scene sceneID="qfG-lG-BSl">
@@ -167,7 +170,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j5w-xb-aBr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4036" y="2.2488755622188905"/>
+            <point key="canvasLocation" x="4074" y="54"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="G8n-hk-wJ8">
@@ -257,7 +260,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GB5-gI-07v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2550" y="384"/>
+            <point key="canvasLocation" x="2550" y="445"/>
         </scene>
         <!--Map-->
         <scene sceneID="pWq-k3-Xwx">
@@ -292,7 +295,11 @@
             <objects>
                 <tabBarController id="lf3-AK-E9b" userLabel="Tab View Controller" customClass="TaabViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="On the Map" id="9up-4C-GGu">
-                        <barButtonItem key="leftBarButtonItem" image="pin" id="OGq-zk-v97"/>
+                        <barButtonItem key="leftBarButtonItem" image="pin" id="OGq-zk-v97">
+                            <connections>
+                                <segue destination="RoU-hj-Nax" kind="presentation" id="1EX-zT-uwl"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="okO-rQ-MJg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
