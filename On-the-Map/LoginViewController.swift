@@ -42,8 +42,9 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func signUpPressed(_ sender: AnyObject) {
-        let controller = storyboard!.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
-        present(controller, animated: true, completion: nil)
+        if let signUpURL = URL(string: "https://auth.udacity.com/sign-up?next=https%3A%2F%2Fclassroom.udacity.com%2Fauthenticated") {
+            UIApplication.shared.open(signUpURL)
+        }
     }
     
     // MARK: Login

@@ -188,38 +188,6 @@
             </objects>
             <point key="canvasLocation" x="839" y="36"/>
         </scene>
-        <!--Sign Up View Controller-->
-        <scene sceneID="puw-q3-tSE">
-            <objects>
-                <viewController storyboardIdentifier="SignUpViewController" id="9SP-Kx-FDN" customClass="SignUpViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="qDk-de-7GX"/>
-                        <viewControllerLayoutGuide type="bottom" id="L6E-Js-0oO"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="eO0-JT-NL0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OAL-wB-ff5">
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="OAL-wB-ff5" firstAttribute="top" secondItem="qDk-de-7GX" secondAttribute="bottom" id="4Nv-0I-EyN"/>
-                            <constraint firstItem="L6E-Js-0oO" firstAttribute="top" secondItem="OAL-wB-ff5" secondAttribute="bottom" constant="100" id="I2M-3L-10C"/>
-                            <constraint firstItem="OAL-wB-ff5" firstAttribute="trailing" secondItem="eO0-JT-NL0" secondAttribute="trailingMargin" id="Mfm-pZ-qho"/>
-                            <constraint firstItem="OAL-wB-ff5" firstAttribute="leading" secondItem="eO0-JT-NL0" secondAttribute="leadingMargin" id="arW-PR-vvM"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="webView" destination="OAL-wB-ff5" id="T0Y-Cr-WsB"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fiD-LY-wMd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="838" y="730"/>
-        </scene>
         <!--List-->
         <scene sceneID="rsO-rD-E5b">
             <objects>
