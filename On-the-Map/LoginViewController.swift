@@ -12,11 +12,11 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var loginButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        subscribeToKeyboardNotifications()
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,6 +56,27 @@ class LoginViewController: UIViewController {
     }
 
 }
+
+// MARK: - Keyboard notifications
+
+extension LoginViewController {
+    
+    func keyboardWillShow(notification: Notification) {
+        self.view.frame.origin.y -= getKeyboardHeight(notification)
+    }
+    
+    func subscribeToKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: "keyboardWillShow:", name: Notification.Name.UIKeyboardWillShow, object: nil)
+    }
+    
+    func getKeyboardHeight(_ notification: Notification) -> CGFloat {
+        let userInfo = notification.userInfo!
+        let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        return keyboardSize.cgRectValue.height
+    }
+
+}
+
 
 // MARK: - LoginViewController (Configure UI)
 

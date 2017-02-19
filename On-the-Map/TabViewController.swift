@@ -56,7 +56,6 @@ class TabViewController: UIViewController {
             }
         }
     }
-
 }
 
 private extension TabViewController {

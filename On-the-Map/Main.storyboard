@@ -79,7 +79,6 @@
                     </view>
                     <connections>
                         <outlet property="email" destination="T3c-wr-hKq" id="s6C-12-sSM"/>
-                        <outlet property="loginButton" destination="Ekm-BD-Ug6" id="LHQ-fM-utg"/>
                         <outlet property="password" destination="2Hi-gH-uVv" id="Fsk-Xy-SZX"/>
                     </connections>
                 </viewController>
