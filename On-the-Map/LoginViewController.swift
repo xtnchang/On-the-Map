@@ -63,9 +63,17 @@ class LoginViewController: UIViewController {
 
 }
 
-// MARK: - Keyboard notifications
+// MARK: Keyboard configuration
 
-extension LoginViewController: UITextFieldDelegate     {
+extension LoginViewController: UITextFieldDelegate {
+    
+    // MARK: UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    // MARK: Keyboard notifications
     
     func keyboardWillShow(_ notification: Notification) {
         self.view.frame.origin.y -= getKeyboardHeight(notification)
@@ -94,4 +102,3 @@ private extension LoginViewController {
         self.present(alert, animated: true, completion: nil)
     }
 }
-

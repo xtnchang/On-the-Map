@@ -69,7 +69,7 @@ class ParseClient: NSObject {
     }
     
     // MARK: POST
-    func taskForPOSTMethod(method: String, jsonBody: String, completionHandlerForPOST: @escaping (_ parsedResponse: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForPOSTMethod(method: String, httpRequestBody: String, completionHandlerForPOST: @escaping (_ parsedResponse: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 2/3. Build the URL, Configure the request */
         let urlString = Constants.ParseBaseURL + method
@@ -78,7 +78,7 @@ class ParseClient: NSObject {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonBody.data(using: String.Encoding.utf8)
+        request.httpBody = httpRequestBody.data(using: String.Encoding.utf8)
         
         let session = URLSession.shared
         
