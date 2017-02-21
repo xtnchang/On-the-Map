@@ -26,22 +26,20 @@ class LoginViewController: UIViewController {
 
     @IBAction func loginPressed(_ sender: AnyObject) {
         
-        // MARK: - TODO Make sure that self.email.text and self.password.text texts are not empty or nil
-        
+        if (self.email.text == "" || self.password.text == "" ) {
+            self.showErrorAlert(message: "Your email or password cannot be blank.")
+        }
         
         let username = self.email.text!
         let password = self.password.text!
         
-        print("\nIn loginPressed...")
-        print("\tusername: \(username)")
-        print("\tpassword: \(password)")
         UdacityClient.sharedInstance().postSession(username: username, password: password) { (success, sessionID, error) in
             
             performUIUpdatesOnMain {
                 if success {
                     self.completeLogin()
                 } else {
-                self.showErrorAlert()
+                    self.showErrorAlert(message: "Your email or password is incorrect.")
                 }
             }
         }
@@ -96,8 +94,8 @@ extension LoginViewController: UITextFieldDelegate {
 
 private extension LoginViewController {
     
-    func showErrorAlert() {
-        let alert = UIAlertController(title: "Alert", message: "Your email or password is incorrect", preferredStyle: UIAlertControllerStyle.alert)
+    func showErrorAlert(message: String) {
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
