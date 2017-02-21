@@ -12,11 +12,11 @@ import UIKit
 extension ParseClient {
     
     // The JSON response (result) for GETting all student locations is a dictionary.
-    // The 'result' parameter is an array of dictionaries (each dictionary is a student)
-    func getStudentLocations(completionHandlerForLocations: @escaping (_ success: Bool, _ studentLocations: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
+    // The studentInfoArray parameter is an array of dictionaries (each dictionary is a student)
+    func getStudentLocations(completionHandlerForLocations: @escaping (_ success: Bool, _ studentInfoArray: [StudentInfo]?, _ error: NSError?) -> Void) {
         
         // No query string parameters required, since you're not requesting a specific location.
-        // The 'results' parameter is the encompassing data structure type, the "results" dictionary.
+        // The parsedResponse parameter is the encompassing data structure type, the "results" dictionary.
         let _ = taskForGETMethod(method: Methods.StudentLocation, parameters: nil) { (parsedResponse, error) in
         
             func sendError(error: String) {
@@ -40,12 +40,24 @@ extension ParseClient {
                 return
             }
             
-            completionHandlerForLocations(true, studentLocations, nil)
+            // empty array to be populated with StudentInfo structs (stored in StudentInfo.swift)
+            var studentInfoArray = [StudentInfo]()
+            
+            // Convert each student dictionary (parsed JSON) to a StudentInfo struct.
+            for student in studentLocations! {
+                let studentStruct = StudentInfo(dictionary: student)
+                studentInfoArray.append(studentStruct)
+            }
+            
+            print(studentInfoArray)
+            
+            completionHandlerForLocations(true, studentInfoArray, nil)
                
         }
+
     }
     
-    // The 'result' parameter is an array containing a single dictionary (single student)
+    // The studentLocation parameter is an array containing a single dictionary (single student)
     func getSingleStudentLocation(completionHandlerForStudentLocation: @escaping (_ studentLocation: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
         
         // query string parameters for where=unique_key:1234
@@ -79,13 +91,13 @@ extension ParseClient {
         }
     }
     
-    // The 'result' parameter is the string value for either "objectId" or "createdAt"
+    // The objectID parameter is the string value for either "objectId" or "createdAt"
     func postStudentLocation(uniqueKey: String?, firstName: String?, lastName: String?, mapString: String?, mediaURL: String?, latitude: Int?, longitude: Int?, completionHandlerForPostLocation: @escaping (_ objectID: String?, _ error: NSError?) -> Void) {
         
         // JSON request body in String form
         let httpRequestBody = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}"
         
-        // The 'results' parameter is the dictionary with keys createdAt and objectId.
+        // The parsedResponse parameter is the dictionary with keys createdAt and objectId.
         let _ = taskForPOSTMethod(method: Methods.StudentLocation, httpRequestBody: httpRequestBody) { (parsedResponse, error) in
         
             func sendError(error: String) {
@@ -115,13 +127,13 @@ extension ParseClient {
         }
     }
  
-    // The 'result' parameter is the string value for either "updatedAt"
+    // The updatedAt parameter is the string value for either "updatedAt"
     func putStudentLocation(uniqueKey: String?, firstName: String?, lastName: String?, mapString: String?, mediaURL: String?, latitude: Int?, longitude: Int?, completionHandlerForPutLocation: @escaping (_ updatedAt: String?, _ error: NSError?) -> Void) {
         
         // JSON request body in String form
         let httpRequestBody = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}"
         
-        // The 'results' parameter is a dictionary with a single key, updatedAt
+        // The parsedResponse parameter is a dictionary with a single key, updatedAt
         let _ = taskForPUTMethod(method: Methods.StudentLocation, parameters: self.objectID!, httpRequestBody: httpRequestBody) { (parsedResponse, error) in
             
             func sendError(error: String) {

@@ -30,25 +30,19 @@ class TabViewController: UIViewController {
     func loadStudentLocations() {
         
         // studentLocations is an array of dictionaries
-        ParseClient.sharedInstance().getStudentLocations() { (success, studentLocations, error) in
+        ParseClient.sharedInstance().getStudentLocations() { (success, studentInfoArray, error) in
             
             performUIUpdatesOnMain {
                 if success {
-                    // empty array to be populated with StudentInfo structs (stored in StudentInfo.swift)
-                    var studentInfoArray = StudentInfo.arrayOfStudentStructs
-                    
-                    // Convert each student dictionary (parsed JSON) to a StudentInfo struct.
-                    for student in studentLocations! {
-                        let studentStruct = StudentInfo(dictionary: student)
-                        studentInfoArray.append(studentStruct)
-                    }
                     
                     let mapVC = MapViewController()
-                    mapVC.studentInfoArrayToLoad = studentInfoArray
-                    mapVC.loadStudents(studentInfo: studentInfoArray)
+                    mapVC.studentInfoArrayToLoad = studentInfoArray!
+                    mapVC.loadStudents(studentInfo: studentInfoArray!)
                     
                     let listVC = ListViewController()
-                    listVC.studentInfoArrayToLoad = studentInfoArray
+                    listVC.studentInfoArrayToLoad = studentInfoArray!
+                    
+                    print(studentInfoArray)
                     
                 } else {
                     self.showErrorAlert()

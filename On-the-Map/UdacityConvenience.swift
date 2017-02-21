@@ -12,9 +12,10 @@ import UIKit
 extension UdacityClient {
     
     // The HTTP request message body for postSession contains username & password.
-    // The HTTP response message body for postSession contains sessionID.
+    // The HTTP response message body for postSession contains userID and sessionID.
     func postSession(username: String, password: String, completionHandlerForSession: @escaping (_ success: Bool, _ sessionID: String?, _ error: NSError?) -> Void) {
         
+        // The string form of httpRequestBody (below) gets converted to type Data in taskForPOSTMethod.
         let httpRequestBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}"
         
         let _ = taskForPOSTMethod(method: Methods.Session, httpRequestBody: httpRequestBody) { (parsedResponse, error) in
@@ -45,9 +46,11 @@ extension UdacityClient {
                 return
             }
             
-            // set the userID (unique key)
+            // Set the userID (unique key)
             self.userID = key
             
+            
+            // Now check if the sessionID exists. If it exists, then success = true.
             guard let session = parsedResponse?[JSONResponseKeys.Session] as! [String:AnyObject]? else {
                 sendError(error: "No session was found.")
                 return
@@ -64,7 +67,7 @@ extension UdacityClient {
         
     }
     
-    // Any parameters needed for deleteSession? No.
+    // No parameters needed for deleteSession.
     func deleteSession(completionHandlerForDeleteSession: @escaping (_ sessionID: AnyObject?, _ error: NSError?) -> Void) {
         
         let _ = taskForDELETEMethod(method: JSONResponseKeys.Session)
