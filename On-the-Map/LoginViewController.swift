@@ -26,9 +26,15 @@ class LoginViewController: UIViewController {
 
     @IBAction func loginPressed(_ sender: AnyObject) {
         
+        // MARK: - TODO Make sure that self.email.text and self.password.text texts are not empty or nil
+        
+        
         let username = self.email.text!
         let password = self.password.text!
         
+        print("\nIn loginPressed...")
+        print("\tusername: \(username)")
+        print("\tpassword: \(password)")
         UdacityClient.sharedInstance().postSession(username: username, password: password) { (success, sessionID, error) in
             
             performUIUpdatesOnMain {
@@ -59,14 +65,14 @@ class LoginViewController: UIViewController {
 
 // MARK: - Keyboard notifications
 
-extension LoginViewController {
+extension LoginViewController: UITextFieldDelegate     {
     
-    func keyboardWillShow(notification: Notification) {
+    func keyboardWillShow(_ notification: Notification) {
         self.view.frame.origin.y -= getKeyboardHeight(notification)
     }
     
     func subscribeToKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: "keyboardWillShow:", name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
     }
     
     func getKeyboardHeight(_ notification: Notification) -> CGFloat {

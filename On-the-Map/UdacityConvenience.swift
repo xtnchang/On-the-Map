@@ -15,10 +15,9 @@ extension UdacityClient {
     // The HTTP response message body for postSession contains sessionID.
     func postSession(username: String, password: String, completionHandlerForSession: @escaping (_ success: Bool, _ sessionID: String?, _ error: NSError?) -> Void) {
         
-        // HTTP request message
-        let jsonBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: String.Encoding.utf8)
+        let httpRequestBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}"
         
-        taskForPOSTMethod(method: Methods.Session, jsonBody: jsonBody) { (parsedResult, error) in
+        let _ = taskForPOSTMethod(method: Methods.Session, httpRequestBody: httpRequestBody) { (parsedResponse, error) in
             
             func sendError(error: String) {
                 print(error)
@@ -31,12 +30,12 @@ extension UdacityClient {
                 return
             }
             
-            guard (parsedResult != nil) else {
+            guard (parsedResponse != nil) else {
                 sendError(error: "No results were found.")
                 return
             }
             
-            guard let account = parsedResult?[JSONResponseKeys.Account] as! [String:AnyObject]? else {
+            guard let account = parsedResponse?[JSONResponseKeys.Account] as! [String:AnyObject]? else {
                 sendError(error: "No account was found.")
                 return
             }
@@ -49,7 +48,7 @@ extension UdacityClient {
             // set the userID (unique key)
             self.userID = key
             
-            guard let session = parsedResult?[JSONResponseKeys.Session] as! [String:AnyObject]? else {
+            guard let session = parsedResponse?[JSONResponseKeys.Session] as! [String:AnyObject]? else {
                 sendError(error: "No session was found.")
                 return
             }
@@ -65,11 +64,11 @@ extension UdacityClient {
         
     }
     
-    // Any parameters needed for deleteSession?
+    // Any parameters needed for deleteSession? No.
     func deleteSession(completionHandlerForDeleteSession: @escaping (_ sessionID: AnyObject?, _ error: NSError?) -> Void) {
         
-        taskForDELETEMethod(method: JSONResponseKeys.Session)
-        { (parsedResult, error) in
+        let _ = taskForDELETEMethod(method: JSONResponseKeys.Session)
+        { (parsedResponse, error) in
             
             func sendError(error: String) {
                 print(error)
@@ -82,12 +81,12 @@ extension UdacityClient {
                 return
             }
             
-            guard (parsedResult != nil) else {
+            guard (parsedResponse != nil) else {
                 sendError(error: "No results were found.")
                 return
             }
             
-            guard let session = parsedResult?[JSONResponseKeys.Session] as! [String:AnyObject]? else {
+            guard let session = parsedResponse?[JSONResponseKeys.Session] as! [String:AnyObject]? else {
                 sendError(error: "No account was found.")
                 return
             }
@@ -103,7 +102,7 @@ extension UdacityClient {
 
     func getUserData(completionHandlerForUserData: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
     
-        taskForGETMethod(method: Methods.User + self.userID!) { (parsedResult, error) in
+        let _ = taskForGETMethod(method: Methods.User + self.userID!) { (parsedResponse, error) in
             
             func sendError(error: String) {
                 print(error)
@@ -116,12 +115,12 @@ extension UdacityClient {
                 return
             }
             
-            guard (parsedResult != nil) else {
+            guard (parsedResponse != nil) else {
                 sendError(error: "No results were found.")
                 return
             }
             
-            guard let user = parsedResult?[JSONResponseKeys.User] as! [String:AnyObject]? else {
+            guard let user = parsedResponse?[JSONResponseKeys.User] as! [String:AnyObject]? else {
                 sendError(error: "No user was found.")
                 return
             }

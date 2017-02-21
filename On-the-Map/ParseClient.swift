@@ -18,7 +18,7 @@ class ParseClient: NSObject {
     
     // MARK: GET
     // 'parameters' parameter is for query string parameters
-    func taskForGETMethod(method: String, parameters: String?, completionHandlerForGET: @escaping (_ parsedResult: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForGETMethod(method: String, parameters: String?, completionHandlerForGET: @escaping (_ parsedResponse: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         
         /* 2/3. Build the URL, Configure the request */
@@ -57,11 +57,9 @@ class ParseClient: NSObject {
                 return
             }
             
-            let newData = data.subdata(in: Range(uncheckedBounds: (5, data.count - 5)))
-            
             /* 5/6. Parse the data and use the data (happens in completion handler) */
             // Parse raw JSON and pass values for (result, error) to completionHandlerForParsing.
-            self.parseJSONWithCompletionHandler(newData, completionHandlerForParsingJSON: completionHandlerForGET)
+            self.parseJSONWithCompletionHandler(data, completionHandlerForParsingJSON: completionHandlerForGET)
         }
         
         /* 7. Start the request */
@@ -71,7 +69,7 @@ class ParseClient: NSObject {
     }
     
     // MARK: POST
-    func taskForPOSTMethod(method: String, jsonBody: Data?, completionHandlerForPOST: @escaping (_ prasedResult: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForPOSTMethod(method: String, jsonBody: String, completionHandlerForPOST: @escaping (_ parsedResponse: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 2/3. Build the URL, Configure the request */
         let urlString = Constants.ParseBaseURL + method
@@ -80,7 +78,7 @@ class ParseClient: NSObject {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonBody 
+        request.httpBody = jsonBody.data(using: String.Encoding.utf8)
         
         let session = URLSession.shared
         
@@ -111,10 +109,8 @@ class ParseClient: NSObject {
                 return
             }
             
-            let newData = data.subdata(in: Range(uncheckedBounds: (5, data.count - 5)))
-            
             /* 5/6. Parse the data and use the data (happens in completion handler) */
-            self.parseJSONWithCompletionHandler(newData, completionHandlerForParsingJSON: completionHandlerForPOST)
+            self.parseJSONWithCompletionHandler(data, completionHandlerForParsingJSON: completionHandlerForPOST)
         }
         
         /* 7. Start the request */
@@ -125,7 +121,7 @@ class ParseClient: NSObject {
     
     // MARK: PUT
     // 'parameters' parameter is for {objectId} path parameter
-    func taskForPUTMethod(method: String, parameters: String, jsonBody: Data?, completionHandlerForPUT: @escaping (_ parsedResult: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForPUTMethod(method: String, parameters: String, httpRequestBody: String, completionHandlerForPUT: @escaping (_ parsedResponse: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 2/3. Build the URL, Configure the request */
         let urlString = Constants.ParseBaseURL + method + parameters
@@ -134,7 +130,7 @@ class ParseClient: NSObject {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonBody 
+        request.httpBody = httpRequestBody.data(using: String.Encoding.utf8)
         
         let session = URLSession.shared
         
@@ -165,10 +161,8 @@ class ParseClient: NSObject {
                 return
             }
             
-            let newData = data.subdata(in: Range(uncheckedBounds: (5, data.count - 5)))
-            
             /* 5/6. Parse the data and use the data (happens in completion handler) */
-            self.parseJSONWithCompletionHandler(newData, completionHandlerForParsingJSON: completionHandlerForPUT)
+            self.parseJSONWithCompletionHandler(data, completionHandlerForParsingJSON: completionHandlerForPUT)
         }
         
         /* 7. Start the request */
@@ -183,16 +177,16 @@ class ParseClient: NSObject {
     // convertDataWithCompletionHandler gets called at the bottom of taskForGETMethod.
     private func parseJSONWithCompletionHandler(_ data: Data, completionHandlerForParsingJSON: (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
-        var parsedResult: AnyObject! = nil
+        var parsedResponse: AnyObject! = nil
         do {
-            parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
+            parsedResponse = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
         } catch {
             let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
             // Pass in arguments for the completionHandler...and then after the parseJSONWithCompletionHandler function is done running, run completionHandlerForParsingJSON
             completionHandlerForParsingJSON(nil, NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
         }
         
-        completionHandlerForParsingJSON(parsedResult, nil)
+        completionHandlerForParsingJSON(parsedResponse, nil)
     }
     
 //    // create a URL from parameters

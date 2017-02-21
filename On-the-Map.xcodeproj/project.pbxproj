@@ -147,13 +147,13 @@
 			isa = PBXGroup;
 			children = (
 				38FB95C31E072B3300281B50 /* AppDelegate.swift */,
+				38C4C74E1E56629D00F6BB95 /* GCDBlackBox.swift */,
 				38FB95F31E073B0C00281B50 /* Model */,
 				38FB95F41E073B1B00281B50 /* View */,
 				38FB95F61E073B2C00281B50 /* Controller */,
 				38FB95CA1E072B3300281B50 /* Assets.xcassets */,
 				38FB95CC1E072B3300281B50 /* LaunchScreen.storyboard */,
 				38FB95CF1E072B3300281B50 /* Info.plist */,
-				38C4C74E1E56629D00F6BB95 /* GCDBlackBox.swift */,
 			);
 			path = "On-the-Map";
 			sourceTree = "<group>";

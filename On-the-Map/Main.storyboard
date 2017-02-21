@@ -263,7 +263,7 @@
                     <navigationItem key="navigationItem" title="On the Map" id="9up-4C-GGu">
                         <barButtonItem key="rightBarButtonItem" image="pin" id="OGq-zk-v97">
                             <connections>
-                                <segue destination="RoU-hj-Nax" kind="presentation" id="1EX-zT-uwl"/>
+                                <segue destination="RoU-hj-Nax" kind="modal" id="cCB-4I-zUs"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

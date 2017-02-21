@@ -16,7 +16,7 @@ class UdacityClient: NSObject {
     
     // MARK: GET
     // No URL path parameters required to send requests to server for Udacity API. Only methods are needed. 
-    func taskForGETMethod(method: String, completionHandlerForGET: @escaping (_ parsedResult: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForGETMethod(method: String, completionHandlerForGET: @escaping (_ parsedResponse: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         
         /* 2/3. Build the URL, Configure the request */
@@ -53,7 +53,7 @@ class UdacityClient: NSObject {
                 return
             }
             
-            let newData = data.subdata(in: Range(uncheckedBounds: (0, data.count - 5)))
+            let newData = data.subdata(in: Range(uncheckedBounds: (5, data.count)))
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
             // Parse raw JSON and pass values for (result, error) to completionHandlerForParsing.
@@ -69,7 +69,7 @@ class UdacityClient: NSObject {
     // MARK: POST
     // No URL parameters required to send requests to server for Udacity API, therefore no 'parameters' parameter needed. Only HTTP request message (jsonBody) parameters needed.
     // jsonBody is the request body. It is an array of dictionaries?
-    func taskForPOSTMethod(method: String, jsonBody: Data?, completionHandlerForPOST: @escaping (_ parsedResult: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForPOSTMethod(method: String, httpRequestBody: String, completionHandlerForPOST: @escaping (_ parsedResponse: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 2/3. Build the URL, Configure the request */
         let urlString = Constants.UdacityBaseURL + method
@@ -78,9 +78,10 @@ class UdacityClient: NSObject {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = httpRequestBody.data(using: String.Encoding.utf8)
         
         let session = URLSession.shared
-        
+
         /* 4. Make the request */
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
@@ -108,7 +109,11 @@ class UdacityClient: NSObject {
                 return
             }
    
-            let newData = data.subdata(in: Range(uncheckedBounds: (0, data.count - 5)))
+            let newData = data.subdata(in: Range(uncheckedBounds: (5, data.count)))
+            
+            // print out your newData
+            print("\nIntaskForPostMethod...")
+            print("\tnewData: \(newData)")
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
             self.parseJSONWithCompletionHandler(newData, completionHandlerForParsingJSON: completionHandlerForPOST)
@@ -120,7 +125,7 @@ class UdacityClient: NSObject {
             return task
     }
     
-    func taskForDELETEMethod(method: String, completionHandlerForDELETE: @escaping (_ parsedResult: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForDELETEMethod(method: String, completionHandlerForDELETE: @escaping (_ parsedResponse: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 2/3. Build the URL, Configure the request */
         let urlString = Constants.UdacityBaseURL + method
@@ -165,7 +170,7 @@ class UdacityClient: NSObject {
                 return
             }
             
-            let newData = data.subdata(in: Range(uncheckedBounds: (0, data.count - 5)))
+            let newData = data.subdata(in: Range(uncheckedBounds: (5, data.count)))
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
             self.parseJSONWithCompletionHandler(newData, completionHandlerForParsingJSON: completionHandlerForDELETE)
@@ -180,18 +185,18 @@ class UdacityClient: NSObject {
 
     // given raw JSON, return a usable Foundation object
     // convertDataWithCompletionHandler gets called at the bottom of taskForGETMethod.
-    private func parseJSONWithCompletionHandler(_ data: Data, completionHandlerForParsingJSON: (_ parsedResult: AnyObject?, _ error: NSError?) -> Void) {
+    private func parseJSONWithCompletionHandler(_ data: Data, completionHandlerForParsingJSON: (_ parsedResponse: AnyObject?, _ error: NSError?) -> Void) {
         
-        var parsedResult: AnyObject! = nil
+        var parsedResponse: AnyObject! = nil
         do {
-            parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
+            parsedResponse = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
         } catch {
             let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
             // Pass in arguments for the completionHandler...and then after the parseJSONWithCompletionHandler function is done running, run completionHandlerForParsingJSON
             completionHandlerForParsingJSON(nil, NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
         }
         
-        completionHandlerForParsingJSON(parsedResult, nil)
+        completionHandlerForParsingJSON(parsedResponse, nil)
     }
     
     // MARK: Shared Instance
