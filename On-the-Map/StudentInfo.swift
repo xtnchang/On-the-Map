@@ -13,16 +13,16 @@ struct StudentInfo {
     
     // MARK: JSON request keys needed for POSTing a session
     
-    var createdAt: String
-    var firstName: String
-    var lastName: String
-    var latitude: Int?
-    var longitude: Int?
-    var mapString: String
-    var mediaURL: String
-    var objectID: String
-    var uniqueKey: String
-    var updatedAt: String
+    var createdAt: String?
+    var firstName: String?
+    var lastName: String?
+    var latitude: Double?
+    var longitude: Double?
+    var mapString: String?
+    var mediaURL: String?
+    var objectID: String?
+    var uniqueKey: String?
+    var updatedAt: String?
     
     
     // MARK: Initializer (for creating a student instance) that takes a dictionary argument. The dictionary argument is a single student JSON dictionary that get converted to a struct.
@@ -34,8 +34,8 @@ struct StudentInfo {
         self.createdAt = dictionary[ParseClient.JSONResponseKeys.CreatedAt] as? String ?? "n/a"
         self.firstName = dictionary[ParseClient.JSONResponseKeys.FirstName] as? String ?? "n/a"
         self.lastName = dictionary[ParseClient.JSONResponseKeys.LastName] as? String ?? "n/a"
-        self.latitude = dictionary[ParseClient.JSONResponseKeys.Latitude] as? Int
-        self.longitude = dictionary[ParseClient.JSONResponseKeys.Longitude] as? Int
+        self.latitude = dictionary[ParseClient.JSONResponseKeys.Latitude] as? Double
+        self.longitude = dictionary[ParseClient.JSONResponseKeys.Longitude] as? Double
         self.mapString = dictionary[ParseClient.JSONResponseKeys.MapString] as? String ?? "n/a"
         self.mediaURL = dictionary[ParseClient.JSONResponseKeys.MediaURL] as? String ?? "n/a"
         self.objectID = dictionary[ParseClient.JSONResponseKeys.ObjectId] as? String ?? "n/a"

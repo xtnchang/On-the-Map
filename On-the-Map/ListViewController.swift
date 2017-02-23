@@ -48,7 +48,7 @@ class ListViewController: UITableViewController {
         
         let student = self.studentInfoArrayToLoad[indexPath.row]
         
-        if let studentURL = URL(string: student.mediaURL) {
+        if let studentURL = URL(string: student.mediaURL!) {
             UIApplication.shared.open(studentURL)
         }
     }
