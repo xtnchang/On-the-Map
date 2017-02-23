@@ -20,9 +20,15 @@ class ParseClient: NSObject {
     // 'parameters' parameter is for query string parameters
     func taskForGETMethod(method: String, parameters: String?, completionHandlerForGET: @escaping (_ parsedResponse: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
+        var urlString = ""
         
         /* 2/3. Build the URL, Configure the request */
-        let urlString = Constants.ParseBaseURL + method + parameters!
+        if parameters == nil {
+            urlString = Constants.ParseBaseURL + method
+        } else {
+            urlString = Constants.ParseBaseURL + method + parameters!
+        }
+        print("URL: \(urlString)")
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(url: url as! URL)
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")

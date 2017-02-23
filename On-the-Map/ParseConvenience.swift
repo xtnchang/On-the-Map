@@ -35,6 +35,7 @@ extension ParseClient {
                 return
             }
             
+            // drill down to the array of student location dictionaries
             guard let studentLocations = parsedResponse?[JSONResponseKeys.Results] as? [[String:AnyObject]]? else {
                 sendError(error: "No results were found.")
                 return

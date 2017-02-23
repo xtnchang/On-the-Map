@@ -39,7 +39,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // Pass in an array of StudentInfo structs
     func loadStudents(studentInfo: [StudentInfo]) {
-
+        
         // We will create an MKPointAnnotation for each dictionary in "locations". The
         // point annotations will be stored in this array, and then provided to the map view.
         var annotations = [MKPointAnnotation]()
@@ -53,8 +53,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             
             // Notice that the float values are being used to create CLLocationDegree values.
             // This is a version of the Double type.
-            let lat = CLLocationDegrees(student.latitude)
-            let long = CLLocationDegrees(student.longitude)
+            if student.latitude == nil || student.longitude == nil {
+                continue
+            }
+            
+            let lat = CLLocationDegrees(student.latitude!)
+            let long = CLLocationDegrees(student.longitude!)
             
             // The lat and long are used to create a CLLocationCoordinates2D instance.
             let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)

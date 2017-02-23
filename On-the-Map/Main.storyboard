@@ -259,7 +259,7 @@
         <!--Tab View Controller-->
         <scene sceneID="sgA-pO-jPl">
             <objects>
-                <tabBarController id="lf3-AK-E9b" userLabel="Tab View Controller" customClass="TaabViewController" sceneMemberID="viewController">
+                <tabBarController id="lf3-AK-E9b" userLabel="Tab View Controller" customClass="TabViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="On the Map" id="9up-4C-GGu">
                         <barButtonItem key="rightBarButtonItem" image="pin" id="OGq-zk-v97">
                             <connections>
