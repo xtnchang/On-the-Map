@@ -26,7 +26,7 @@ class TabViewController: UITabBarController {
     }
     
 
-    // Load student locations in both the map view and thable view.
+    // Load student locations in both the map view and table view.
     func loadStudentLocations() {
         
         // studentLocations is an array of dictionaries
@@ -35,13 +35,13 @@ class TabViewController: UITabBarController {
             performUIUpdatesOnMain {
                 if success {
                     
-                    let mapVC = MapViewController()
-                    mapVC.studentInfoArrayToLoad = studentInfoArray!
-                    mapVC.loadStudents(studentInfo: studentInfoArray!)
-                    
-                    let listVC = ListViewController()
-                    listVC.studentInfoArrayToLoad = studentInfoArray!
-                    
+                    if let mapVC = self.viewControllers?[0] as? MapViewController {
+                        mapVC.studentInfoArrayToLoad = studentInfoArray!
+                        mapVC.loadStudents(studentInfo: studentInfoArray!)
+                    }
+                    if let listVC = self.viewControllers?[1] as? ListViewController {
+                        listVC.studentInfoArrayToLoad = studentInfoArray!
+                    }
                 } else {
                     self.showErrorAlert()
                 }
