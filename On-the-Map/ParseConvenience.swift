@@ -56,7 +56,7 @@ extension ParseClient {
 
     }
     
-    // The studentLocation parameter is an array containing a single dictionary (of the logged in user). The result we want to get out of it is the logged in user's first and last name to annotate their pin with.
+    // The studentLocation parameter is an array containing a single dictionary (of the logged in user).
     func getSingleStudentLocation(completionHandlerForStudentLocation: @escaping (_ studentLocation: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
         
         // query string parameters for where=unique_key:1234. The unique key is stored in the UdacityClient userID property.
