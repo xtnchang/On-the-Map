@@ -31,20 +31,20 @@ struct StudentInfo {
     
     init(dictionary: [String:AnyObject]) {
         
-        self.createdAt = dictionary[ParseClient.JSONResponseKeys.CreatedAt] as? String ?? "n/a"
-        self.firstName = dictionary[ParseClient.JSONResponseKeys.FirstName] as? String ?? "n/a"
-        self.lastName = dictionary[ParseClient.JSONResponseKeys.LastName] as? String ?? "n/a"
+        self.createdAt = dictionary[ParseClient.JSONResponseKeys.CreatedAt] as? String
+        self.firstName = dictionary[ParseClient.JSONResponseKeys.FirstName] as? String
+        self.lastName = dictionary[ParseClient.JSONResponseKeys.LastName] as? String
         self.latitude = dictionary[ParseClient.JSONResponseKeys.Latitude] as? Double
         self.longitude = dictionary[ParseClient.JSONResponseKeys.Longitude] as? Double
-        self.mapString = dictionary[ParseClient.JSONResponseKeys.MapString] as? String ?? "n/a"
-        self.mediaURL = dictionary[ParseClient.JSONResponseKeys.MediaURL] as? String ?? "n/a"
-        self.objectID = dictionary[ParseClient.JSONResponseKeys.ObjectId] as? String ?? "n/a"
-        self.uniqueKey = dictionary[ParseClient.JSONResponseKeys.UniqueKey] as? String ?? "n/a"
-        self.updatedAt = dictionary[ParseClient.JSONResponseKeys.UpdatedAt] as? String ?? "n/a"
+        self.mapString = dictionary[ParseClient.JSONResponseKeys.MapString] as? String
+        self.mediaURL = dictionary[ParseClient.JSONResponseKeys.MediaURL] as? String
+        self.objectID = dictionary[ParseClient.JSONResponseKeys.ObjectId] as? String
+        self.uniqueKey = dictionary[ParseClient.JSONResponseKeys.UniqueKey] as? String
+        self.updatedAt = dictionary[ParseClient.JSONResponseKeys.UpdatedAt] as? String
     }
     
     
-    // Array of StudentInfo structs stored below
+    // Array of StudentInfo structs stored below. This array gets populated in getStudentLocations.
     static var arrayOfStudentStructs: [StudentInfo] = []
     
 }

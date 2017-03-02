@@ -42,7 +42,7 @@ extension ParseClient {
             }
             
             // empty array to be populated with StudentInfo structs (stored in StudentInfo.swift)
-            var studentInfoArray = [StudentInfo]()
+            var studentInfoArray = StudentInfo.arrayOfStudentStructs
             
             // Convert each student dictionary (parsed JSON) to a StudentInfo struct.
             for student in studentLocations! {
@@ -50,18 +50,16 @@ extension ParseClient {
                 studentInfoArray.append(studentStruct)
             }
             
-            print(studentInfoArray)
-            
             completionHandlerForLocations(true, studentInfoArray, nil)
                
         }
 
     }
     
-    // The studentLocation parameter is an array containing a single dictionary (single student)
+    // The studentLocation parameter is an array containing a single dictionary (of the logged in user). The result we want to get out of it is the logged in user's first and last name to annotate their pin with.
     func getSingleStudentLocation(completionHandlerForStudentLocation: @escaping (_ studentLocation: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
         
-        // query string parameters for where=unique_key:1234
+        // query string parameters for where=unique_key:1234. The unique key is stored in the UdacityClient userID property.
         let parameters = "\(ParameterKeys.Where)%7B%22\(JSONResponseKeys.UniqueKey)%22%3A%22\(UdacityClient.sharedInstance().userID)%22%7D"
         
         // The 'results' parameter is the "results" dictionary

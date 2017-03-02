@@ -77,7 +77,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             // Finally we place the annotation in an array of annotations.
             annotations.append(annotation)
             
-            // mapView.addAnnotation(annotation)
         }
         
         self.mapView.addAnnotations(annotations)

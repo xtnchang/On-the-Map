@@ -68,15 +68,15 @@ extension UdacityClient {
     }
     
     // No parameters needed for deleteSession.
-    func deleteSession(completionHandlerForDeleteSession: @escaping (_ sessionID: AnyObject?, _ error: NSError?) -> Void) {
+    func deleteSession(completionHandlerForDeleteSession: @escaping (_ success: Bool, _ sessionID: String?, _ error: NSError?) -> Void) {
         
-        let _ = taskForDELETEMethod(method: JSONResponseKeys.Session)
+        let _ = taskForDELETEMethod(method: Methods.Session)
         { (parsedResponse, error) in
             
             func sendError(error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey: error]
-                completionHandlerForDeleteSession(nil, NSError(domain: "completionHandlerForDELETE", code: 1, userInfo: userInfo))
+                completionHandlerForDeleteSession(false, nil, NSError(domain: "completionHandlerForDELETE", code: 1, userInfo: userInfo))
             }
             
             guard (error == nil) else {
@@ -90,16 +90,17 @@ extension UdacityClient {
             }
             
             guard let session = parsedResponse?[JSONResponseKeys.Session] as! [String:AnyObject]? else {
-                sendError(error: "No account was found.")
+                sendError(error: "No session was found.")
                 return
             }
             
-            guard let sessionID = session[JSONResponseKeys.ID] else {
-                sendError(error: "No key was found.")
+            guard let sessionID = session[JSONResponseKeys.ID] as! String? else {
+                sendError(error: "No session ID was found.")
                 return
             }
             
-            completionHandlerForDeleteSession(sessionID, nil)
+            // Only if there is a session ID (success = true) can we delete a session.
+            completionHandlerForDeleteSession(true, sessionID, nil)
         }
     }
 

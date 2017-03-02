@@ -10,9 +10,7 @@ import UIKit
 
 class AddPinViewController: UIViewController {
 
-    @IBOutlet var enteredLocation: UIView!
-    @IBOutlet weak var findLocation: UIButton!
-    
+    @IBOutlet weak var locationTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,4 +23,11 @@ class AddPinViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func cancelPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func findLocationPressed(_ sender: Any) {
+        let location = locationTextField.text
+    }
 }
