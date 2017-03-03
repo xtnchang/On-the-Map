@@ -8,9 +8,9 @@
 
 import Foundation
 
-// Create an instance of this struct when user presses login button
+// Create an instance of this struct when user presses login button. Once the user logs in with email + password (via Udacity), we get their user info (firstName, lastName, uniqueKey)
+// Use this struct as the httpRequestBody for postStudentLocation.
 
-// Once the user logs in with email + password (via Udacity), we get their user info (firstName, lastName, uniqueKey).
 struct LoggedInUser {
     
     var firstName: String

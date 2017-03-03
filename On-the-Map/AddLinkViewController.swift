@@ -12,21 +12,33 @@ import Foundation
 
 class AddLinkViewController: UIViewController {
     
-    @IBOutlet weak var linkTextField: UITextField!
+    var enteredLocation: String?
     
+    @IBOutlet weak var linkTextField: UITextField!
     @IBOutlet weak var mapView: MKMapView!
+    
+    var geocoder = CLGeocoder()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        // self.mapView.addAnnotation(MKPlacemark(placemark: coordinate))
+        showPinOnMap()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func showPinOnMap() {
+        
+        geocoder.geocodeAddressString(enteredLocation!) { (placemarks, error) in
+            let coordinate = CLLocationCoordinate2D(latitude: placemarks.location.coordinate.latitude, longitude: placemarks.location.coordinate.longitude)
+        }
+        
+        self.mapView.addAnnotation(MKPlacemark(placemark: coordinate))
     }
     
     @IBAction func cancelPressed(_ sender: Any) {

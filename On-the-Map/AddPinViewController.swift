@@ -14,8 +14,6 @@ class AddPinViewController: UIViewController {
 
     @IBOutlet weak var locationTextField: UITextField!
     
-    var geocoder = CLGeocoder()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,10 +30,11 @@ class AddPinViewController: UIViewController {
     }
     
     @IBAction func findLocationPressed(_ sender: Any) {
-        let location = locationTextField.text
         
-//        geocoder.geocodeAddressString(location!) { (placemarks, error) in
-//            let coordinate = CLLocationCoordinate2D(latitude: placemarks.location.coordinate.latitude, longitude: placemarks.location.coordinate.longitude)
-//        }
+        let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddLinkViewController") as! AddLinkViewController
+        
+        // Pass the entered city to the next controller
+        controller.enteredLocation = self.locationTextField.text
+
     }
 }

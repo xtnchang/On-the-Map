@@ -150,7 +150,7 @@
         <!--Add Link View Controller-->
         <scene sceneID="qfG-lG-BSl">
             <objects>
-                <viewController id="dfF-zf-o4b" customClass="AddLinkViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddLinkViewController" id="dfF-zf-o4b" customClass="AddLinkViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eGl-Gg-leA"/>
                         <viewControllerLayoutGuide type="bottom" id="r5r-Pt-oih"/>
