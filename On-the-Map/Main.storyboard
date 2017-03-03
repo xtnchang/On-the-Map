@@ -126,7 +126,6 @@
                                 <state key="normal" title="Find on the map"/>
                                 <connections>
                                     <action selector="findLocationPressed:" destination="RoU-hj-Nax" eventType="touchUpInside" id="lJd-Qp-gwA"/>
-                                    <segue destination="dfF-zf-o4b" kind="presentation" id="Fkt-5o-KKm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gKq-Eb-hD7">
@@ -192,6 +191,7 @@
                     </view>
                     <connections>
                         <outlet property="linkTextField" destination="VAq-nU-anM" id="7A0-wo-ell"/>
+                        <outlet property="mapView" destination="ysa-RE-T3p" id="7MA-wZ-Qdi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j5w-xb-aBr" userLabel="First Responder" sceneMemberID="firstResponder"/>

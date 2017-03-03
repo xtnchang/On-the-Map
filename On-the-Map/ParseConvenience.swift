@@ -91,13 +91,11 @@ extension ParseClient {
     }
     
     // The objectID parameter is the string value for either "objectId" or "createdAt"
-    func postStudentLocation(uniqueKey: String?, firstName: String?, lastName: String?, mapString: String?, mediaURL: String?, latitude: Int?, longitude: Int?, completionHandlerForPostLocation: @escaping (_ objectID: String?, _ error: NSError?) -> Void) {
-        
-        // JSON request body in String form
-        let httpRequestBody = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}"
+    func postStudentLocation(studentDictionary: [String: AnyObject], completionHandlerForPostLocation: @escaping (_ objectID: String?, _ error: NSError?) -> Void) {
         
         // The parsedResponse parameter is the dictionary with keys createdAt and objectId.
-        let _ = taskForPOSTMethod(method: Methods.StudentLocation, httpRequestBody: httpRequestBody) { (parsedResponse, error) in
+        // studentDictionary must be converted to JSON to be sent to the server.
+        let _ = taskForPOSTMethod(method: Methods.StudentLocation, httpRequestBody: studentDictionary) { (parsedResponse, error) in
         
             func sendError(error: String) {
                 print(error)
@@ -127,13 +125,10 @@ extension ParseClient {
     }
  
     // The updatedAt parameter is the string value for either "updatedAt"
-    func putStudentLocation(uniqueKey: String?, firstName: String?, lastName: String?, mapString: String?, mediaURL: String?, latitude: Int?, longitude: Int?, completionHandlerForPutLocation: @escaping (_ updatedAt: String?, _ error: NSError?) -> Void) {
-        
-        // JSON request body in String form
-        let httpRequestBody = "{\"uniqueKey\": \"\(uniqueKey)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}"
+    func putStudentLocation(studentDictionary: [String: AnyObject], completionHandlerForPutLocation: @escaping (_ updatedAt: String?, _ error: NSError?) -> Void) {
         
         // The parsedResponse parameter is a dictionary with a single key, updatedAt
-        let _ = taskForPUTMethod(method: Methods.StudentLocation, parameters: self.objectID!, httpRequestBody: httpRequestBody) { (parsedResponse, error) in
+        let _ = taskForPUTMethod(method: Methods.StudentLocation, parameters: self.objectID!, httpRequestBody: studentDictionary) { (parsedResponse, error) in
             
             func sendError(error: String) {
                 print(error)

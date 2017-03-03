@@ -7,15 +7,21 @@
 //
 
 import UIKit
+import MapKit
+import Foundation
 
 class AddLinkViewController: UIViewController {
     
     @IBOutlet weak var linkTextField: UITextField!
     
+    @IBOutlet weak var mapView: MKMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        // self.mapView.addAnnotation(MKPlacemark(placemark: coordinate))
     }
 
     override func didReceiveMemoryWarning() {

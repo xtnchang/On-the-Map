@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import MapKit
+import Foundation
 
 class AddPinViewController: UIViewController {
 
     @IBOutlet weak var locationTextField: UITextField!
+    
+    var geocoder = CLGeocoder()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,5 +33,9 @@ class AddPinViewController: UIViewController {
     
     @IBAction func findLocationPressed(_ sender: Any) {
         let location = locationTextField.text
+        
+//        geocoder.geocodeAddressString(location!) { (placemarks, error) in
+//            let coordinate = CLLocationCoordinate2D(latitude: placemarks.location.coordinate.latitude, longitude: placemarks.location.coordinate.longitude)
+//        }
     }
 }
