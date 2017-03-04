@@ -35,10 +35,15 @@ class AddLinkViewController: UIViewController {
     func showPinOnMap() {
         
         geocoder.geocodeAddressString(enteredLocation!) { (placemarks, error) in
-            let coordinate = CLLocationCoordinate2D(latitude: placemarks.location.coordinate.latitude, longitude: placemarks.location.coordinate.longitude)
+            
+            // Must unwrap the placemark. Placemarks is an array of potential locations for the entered name. The first property retrieves the first result.
+            if let placemark = placemarks?.first  {
+                
+                // Convert CLPlacemark to MKPlacemark
+                let thePlacemark = MKPlacemark(placemark: placemark)
+                self.mapView.addAnnotation(thePlacemark)
+            }
         }
-        
-        self.mapView.addAnnotation(MKPlacemark(placemark: coordinate))
     }
     
     @IBAction func cancelPressed(_ sender: Any) {

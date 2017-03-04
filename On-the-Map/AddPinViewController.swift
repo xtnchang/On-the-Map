@@ -31,10 +31,14 @@ class AddPinViewController: UIViewController {
     
     @IBAction func findLocationPressed(_ sender: Any) {
         
-        let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddLinkViewController") as! AddLinkViewController
-        
-        // Pass the entered city to the next controller
-        controller.enteredLocation = self.locationTextField.text
-
+        if let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddLinkViewController") as? AddLinkViewController {
+            
+            // Pass the entered city to the next controller
+            controller.enteredLocation = self.locationTextField.text
+            present(controller, animated: true, completion: nil)
+        }
+        else {
+           print("view controller not found")
+        }
     }
 }
