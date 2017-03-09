@@ -29,6 +29,13 @@ class AddPinViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    //MARK:- TODO in func viewWillAppear
+    // get my Parse objectID - if it exists
+    //  - implement using Parse's GET a Student Location using your studentID in the url query component ("?where={"uniqueKey":"\(UdacityClient.sharedInstance.userID)"})
+    // if the method returns a valid JSON, , extract the objectID, store in StudentInfo.userInfo
+    
+    
+    
     @IBAction func findLocationPressed(_ sender: Any) {
         
         if let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddLinkViewController") as? AddLinkViewController {
@@ -36,8 +43,7 @@ class AddPinViewController: UIViewController {
             // Pass the entered city to the next controller
             controller.enteredLocation = self.locationTextField.text
             present(controller, animated: true, completion: nil)
-        }
-        else {
+        } else {
            print("view controller not found")
         }
     }

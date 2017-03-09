@@ -37,7 +37,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         loadStudents(studentInfo: studentInfoArrayToLoad)
     }
     
-    // Pass in an array of StudentInfo structs
+    // Pass in an array of StudentInfo structs. The argument will be the array of structs stored in StudentInfo.
     func loadStudents(studentInfo: [StudentInfo]) {
         
         // We will create an MKPointAnnotation for each dictionary in "locations". The

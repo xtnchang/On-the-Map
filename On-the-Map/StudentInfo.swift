@@ -47,6 +47,16 @@ struct StudentInfo {
     // Array of StudentInfo structs stored below. This array gets populated in getStudentLocations.
     static var arrayOfStudentStructs: [StudentInfo] = []
     
+    // Placeholder "" to be replaced with a StudentInfo struct as we get the student's info
+    static var loggedInUserInfo = ""
+    
+    //MARK: - TODO create a static var for userInfo:StudentInfo
+    // will be populated in :
+    // TabViewController - when user taps the pin icon, get first and last name using getUserData (from Udacity). Call UdacityClient.sharedInstance, add userID to userInfo.
+    //  AddPinViewController - objectID, mapString
+    // AddLinkViewController - longitude and latitude, mediaURL
+    
+    
 }
 
 
