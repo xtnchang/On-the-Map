@@ -90,7 +90,7 @@ extension ParseClient {
         }
     }
     
-    // The objectID parameter is the string value for either "objectId" or "createdAt"
+    // When POSTing a studentLocation, we'll get an "objectID" value in the http response.
     func postStudentLocation(studentDictionary: [String: AnyObject], completionHandlerForPostLocation: @escaping (_ objectID: String?, _ error: NSError?) -> Void) {
         
         // The parsedResponse parameter is the dictionary with keys createdAt and objectId.
@@ -124,7 +124,7 @@ extension ParseClient {
         }
     }
  
-    // The updatedAt parameter is the string value for either "updatedAt"
+    // When PUTting a studentLocation, we'll get an "updatedAt" value in the http response.
     func putStudentLocation(studentDictionary: [String: AnyObject], completionHandlerForPutLocation: @escaping (_ updatedAt: String?, _ error: NSError?) -> Void) {
         
         // The parsedResponse parameter is a dictionary with a single key, updatedAt

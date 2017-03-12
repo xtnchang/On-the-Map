@@ -46,7 +46,6 @@ class AddLinkViewController: UIViewController {
             // Check if objectID exists
             // Store the objectID as a property of this controller?
         }
- 
         */
     }
 
@@ -61,6 +60,9 @@ class AddLinkViewController: UIViewController {
             
             // Must unwrap the placemark. Placemarks is an array of potential locations for the entered name. The first property retrieves the first result.
             if let placemark = placemarks?.first  {
+                
+                // MARK: TO-DO
+                // Convert placemarks to latitude and longitude
                 
                 // Convert CLPlacemark to MKPlacemark so that we can add it to mapView.
                 let mapKitPlacemark = MKPlacemark(placemark: placemark)
@@ -78,17 +80,17 @@ class AddLinkViewController: UIViewController {
         let loggedInUser: [String: AnyObject] = [
             ParseClient.JSONRequestKeys.UniqueKey: UdacityClient.sharedInstance().userID as AnyObject,
             ParseClient.JSONResponseKeys.LastName: self.lastName as AnyObject,
-            ParseClient.JSONRequestKeys.MapString: self.linkTextField.text as AnyObject,
-            ParseClient.JSONRequestKeys.MediaURL: self.mediaURL as AnyObject,
+            ParseClient.JSONRequestKeys.MapString: self.mapString as AnyObject,
+            ParseClient.JSONRequestKeys.MediaURL: self.linkTextField.text as AnyObject,
             ParseClient.JSONRequestKeys.Latitude: self.latitude as AnyObject,
             ParseClient.JSONRequestKeys.Longitude: self.longitude as AnyObject
         ]
         
-        //MARK: TO-DO
-        //  if objectID exists, use Parse's PUT method to update student location with objectID in URL
-        //      required student location info is in httpBody
-        // if objectID don't exist, use Parse's POST method to create a new student location
-        //      required student lcoation info is in httpBody
+        // MARK: TO-DO
+        // If objectID exists, use Parse's PUT method to update student location with objectID in URL
+        //      required student location info (loggedInUser) is in httpBody
+        // If objectID doesn't exist, use Parse's POST method to create a new student location
+        //      required student lcoation info (loggedInUser) is in httpBody 
         
         // Dismiss the modal view and go back to TabViewController.
         self.dismiss(animated: true, completion: nil)
