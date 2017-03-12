@@ -66,6 +66,28 @@ class TabViewController: UITabBarController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func addPinPressed(_ sender: Any) {
+        
+        UdacityClient.sharedInstance().getUserData() { (success, firstName, lastName, error) in
+            
+            performUIUpdatesOnMain {
+                
+                if success {
+                    self.openAddPinVC(firstName: firstName, lastName: lastName)
+                } else {
+                    self.showErrorAlert(messageText: "First name or last name missing.")
+                }
+            }
+        }
+    }
+    
+    private func openAddPinVC(firstName: String?, lastName: String?) {
+        
+        let controller = storyboard!.instantiateViewController(withIdentifier: "AddPinViewController") as! AddPinViewController
+        controller.firstName = firstName
+        controller.lastName = lastName
+        present(controller, animated: true, completion: nil)
+    }
 }
 
 private extension TabViewController {

@@ -105,14 +105,14 @@ extension UdacityClient {
     }
 
     // Use this method to get the user's first name and last name for their pin.
-    func getUserData(completionHandlerForUserData: @escaping (_ fullName: String?, _ error: NSError?) -> Void) {
+    func getUserData(completionHandlerForUserData: @escaping (_ success: Bool, _ firstName: String?, _ lastName: String?, _ error: NSError?) -> Void) {
     
         let _ = taskForGETMethod(method: Methods.User + self.userID!) { (parsedResponse, error) in
             
             func sendError(error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey: error]
-                completionHandlerForUserData(nil, NSError(domain: "completionHandlerForGET", code: 1, userInfo: userInfo))
+                completionHandlerForUserData(false, nil, nil, NSError(domain: "completionHandlerForGET", code: 1, userInfo: userInfo))
             }
             
             guard (error == nil) else {
@@ -139,10 +139,8 @@ extension UdacityClient {
                 sendError(error: "No last name was found.")
                 return
             }
-            
-            let fullName = "\(firstName) \(lastName)"
-            
-            completionHandlerForUserData(fullName, nil)
+        
+            completionHandlerForUserData(true, firstName, lastName, nil)
         }
 
         
