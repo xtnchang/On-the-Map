@@ -10,6 +10,9 @@ import UIKit
 
 class TabViewController: UITabBarController {
     
+    var firstName: String?
+    var lastName: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,7 +20,9 @@ class TabViewController: UITabBarController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        
         loadStudentLocations()
+        getUserData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -49,6 +54,20 @@ class TabViewController: UITabBarController {
         }
     }
     
+    // Get the user first name and last name
+    func getUserData() {
+        UdacityClient.sharedInstance().getUserData() { (success, firstName, lastName, error) in
+            
+            guard error == nil else {
+                self.showErrorAlert(messageText: "Couldn't find your first and last name.")
+                return
+            }
+            
+            self.firstName = firstName
+            self.lastName = lastName
+        }
+    }
+    
     @IBAction func logoutPressed(_ sender: Any) {
         
         UdacityClient.sharedInstance().deleteSession() { (success, sessionID, error) in
@@ -68,24 +87,35 @@ class TabViewController: UITabBarController {
     
     @IBAction func addPinPressed(_ sender: Any) {
         
-        UdacityClient.sharedInstance().getUserData() { (success, firstName, lastName, error) in
-            
-            performUIUpdatesOnMain {
-                
-                if success {
-                    self.openAddPinVC(firstName: firstName, lastName: lastName)
-                } else {
-                    self.showErrorAlert(messageText: "First name or last name missing.")
-                }
-            }
-        }
+        // MARK: TO-DO
+        // Get objectID from getSingleStudentLocation (if it exists). If the method returns valid JSON, extract the objectID.
+        // Should I write a separate function to do this? And then just call that function in this IBAction?
+        
+        /***** calling getSingleStudentLocation here gives me a thread error *****/
+        
+//        ParseClient.sharedInstance().getSingleStudentLocation() { (studentLocation, error) in
+//            
+//            // Unwrap the objectID here? 
+              // Should I store objectID in AppDelegate? Then, in AddLinkViewController I can check whether to use PUT or POST?
+//            
+//            performUIUpdatesOnMain {
+//                
+//                if studentLocation != nil {
+//                    self.showErrorAlert(messageText: "Do you want to overwrite your existing location?")
+//                    self.openAddPinVC()
+//                } else {
+//                    self.openAddPinVC()
+//                }
+//            }
+//        }
     }
     
-    private func openAddPinVC(firstName: String?, lastName: String?) {
+    // Transition to the next view controller
+    func openAddPinVC() {
         
         let controller = storyboard!.instantiateViewController(withIdentifier: "AddPinViewController") as! AddPinViewController
-        controller.firstName = firstName
-        controller.lastName = lastName
+        controller.firstName = self.firstName
+        controller.lastName = self.lastName
         present(controller, animated: true, completion: nil)
     }
 }

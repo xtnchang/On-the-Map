@@ -86,6 +86,18 @@ extension ParseClient {
                 return
             }
             
+            /*** Should I unwrap the objectID? ***/
+            
+//            guard let dictionary = studentLocation[0] as? [String: AnyObject] else {
+//                sendError(error: "No results were found.")
+//                return
+//            }
+//            
+//            guard let objectID = dictionary[JSONResponseKeys.ObjectId] as? String else {
+//                sendError(error: "No objectID found.")
+//                return
+//            }
+            
             completionHandlerForStudentLocation(studentLocation, nil)
         }
     }
