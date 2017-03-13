@@ -60,7 +60,7 @@ extension ParseClient {
     func getSingleStudentLocation(completionHandlerForStudentLocation: @escaping (_ studentLocation: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
         
         // query string parameters for where=unique_key:1234. The unique key is stored in the UdacityClient userID property.
-        let parameters = "\(ParameterKeys.Where)%7B%22\(JSONResponseKeys.UniqueKey)%22%3A%22\(UdacityClient.sharedInstance().userID)%22%7D"
+        let parameters = "\(ParameterKeys.Where)%7B%22\(JSONResponseKeys.UniqueKey)%22%3A%22\(UdacityClient.sharedInstance().userID!)%22%7D"
         
         // The 'results' parameter is the "results" dictionary
         let _ = taskForGETMethod(method: Methods.StudentLocation, parameters: parameters) { (parsedResponse, error) in

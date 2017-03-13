@@ -93,21 +93,21 @@ class TabViewController: UITabBarController {
         
         /***** calling getSingleStudentLocation here gives me a thread error *****/
         
-//        ParseClient.sharedInstance().getSingleStudentLocation() { (studentLocation, error) in
+        ParseClient.sharedInstance().getSingleStudentLocation() { (studentLocation, error) in
 //            
 //            // Unwrap the objectID here? 
               // Should I store objectID in AppDelegate? Then, in AddLinkViewController I can check whether to use PUT or POST?
 //            
-//            performUIUpdatesOnMain {
-//                
-//                if studentLocation != nil {
-//                    self.showErrorAlert(messageText: "Do you want to overwrite your existing location?")
-//                    self.openAddPinVC()
-//                } else {
-//                    self.openAddPinVC()
-//                }
-//            }
-//        }
+            performUIUpdatesOnMain {
+                
+                if studentLocation != nil {
+                    self.showErrorAlert(messageText: "Do you want to overwrite your existing location?")
+                    self.openAddPinVC()
+                } else {
+                    self.openAddPinVC()
+                }
+            }
+        }
     }
     
     // Transition to the next view controller
