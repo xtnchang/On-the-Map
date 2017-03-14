@@ -18,6 +18,7 @@ class AddLinkViewController: UIViewController {
     var mediaURL: String?
     var latitude: Double?
     var longitude: Double?
+    var objectID: String?
     
     @IBOutlet weak var linkTextField: UITextField!
     @IBOutlet weak var mapView: MKMapView!
@@ -63,7 +64,7 @@ class AddLinkViewController: UIViewController {
         
         let loggedInUser: [String: AnyObject] = [
             ParseClient.JSONRequestKeys.UniqueKey: UdacityClient.sharedInstance().userID as AnyObject,
-            ParseClient.JSONResponseKeys.LastName: self.lastName as AnyObject,
+            ParseClient.JSONRequestKeys.LastName: self.lastName as AnyObject,
             ParseClient.JSONRequestKeys.MapString: self.mapString as AnyObject,
             ParseClient.JSONRequestKeys.MediaURL: self.linkTextField.text as AnyObject,
             ParseClient.JSONRequestKeys.Latitude: self.latitude as AnyObject,
@@ -79,5 +80,23 @@ class AddLinkViewController: UIViewController {
         
         // Dismiss the modal view and go back to TabViewController.
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func getObjectID () {
+        
+        ParseClient.sharedInstance().getSingleStudentLocation() { (studentLocation, error) in
+            
+            // Access the first (and only) dictionary in the array.
+            let dictionary = studentLocation![0]
+            
+            // Unwrap the objectID
+            guard let objectID = dictionary[ParseClient.JSONResponseKeys.ObjectId] as? String else {
+                print("objectID not found")
+                return
+            }
+            
+            self.objectID = objectID
+            
+        }
     }
 }
