@@ -138,7 +138,7 @@ class ParseClient: NSObject {
         let urlString = Constants.ParseBaseURL + method + parameters
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(url: url as! URL)
-        request.httpMethod = "POST"
+        request.httpMethod = "PUT"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         // Convert Foundation object to JSON

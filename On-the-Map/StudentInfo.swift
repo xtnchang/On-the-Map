@@ -9,6 +9,7 @@
 import Foundation
 
 // Each entry (student) is represented by a struct
+// When we call getStudentLocations, the http response body of all the student locations we get is stored in StudentInfo.
 struct StudentInfo {
     
     // MARK: JSON request keys needed for POSTing a session
