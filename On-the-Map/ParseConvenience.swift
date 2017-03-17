@@ -103,7 +103,7 @@ extension ParseClient {
     }
     
     // When POSTing a studentLocation, we'll get an "objectID" value in the http response.
-    func postStudentLocation(studentDictionary: [String: AnyObject], completionHandlerForPostLocation: @escaping (_ objectID: String?, _ error: NSError?) -> Void) {
+    func postStudentLocation(studentDictionary: String, completionHandlerForPostLocation: @escaping (_ objectID: String?, _ error: NSError?) -> Void) {
         
         // The parsedResponse parameter is the dictionary with keys createdAt and objectId.
         // studentDictionary must be converted to JSON to be sent to the server.
@@ -137,7 +137,7 @@ extension ParseClient {
     }
  
     // When PUTting a studentLocation, we'll get an "updatedAt" value in the http response.
-    func putStudentLocation(studentDictionary: [String: AnyObject], completionHandlerForPutLocation: @escaping (_ updatedAt: String?, _ error: NSError?) -> Void) {
+    func putStudentLocation(studentDictionary: String, completionHandlerForPutLocation: @escaping (_ updatedAt: String?, _ error: NSError?) -> Void) {
         
         // The parsedResponse parameter is a dictionary with a single key, updatedAt
         let _ = taskForPUTMethod(method: Methods.StudentLocation, parameters: self.objectID!, httpRequestBody: studentDictionary) { (parsedResponse, error) in

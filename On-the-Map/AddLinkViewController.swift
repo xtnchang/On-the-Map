@@ -69,18 +69,19 @@ class AddLinkViewController: UIViewController {
     }
     
     @IBAction func submitPressed(_ sender: Any) {
-        // JSON string needed for request: "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://www.facebook.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}"
+        
+        let loggedInUser: String = "{\"uniqueKey\": \"\(UdacityClient.sharedInstance().userID)\", \"firstName\": \"\(self.firstName)\", \"lastName\": \"\(self.lastName)\",\"mapString\": \"\(self.mapString)\", \"mediaURL\": \"\(self.linkTextField.text)\",\"latitude\": \(self.latitude), \"longitude\": \(self.longitude)}"
         
         // This dictionary contains the contents required for the http request body.
-        let loggedInUser: [String: AnyObject] = [
-            ParseClient.JSONRequestKeys.UniqueKey: UdacityClient.sharedInstance().userID as AnyObject,
-            ParseClient.JSONRequestKeys.FirstName: self.firstName as AnyObject,
-            ParseClient.JSONRequestKeys.LastName: self.lastName as AnyObject,
-            ParseClient.JSONRequestKeys.MapString: self.mapString as AnyObject,
-            ParseClient.JSONRequestKeys.MediaURL: self.linkTextField.text as AnyObject,
-            ParseClient.JSONRequestKeys.Latitude: self.latitude as AnyObject,
-            ParseClient.JSONRequestKeys.Longitude: self.longitude as AnyObject
-        ]
+//        let loggedInUser: [String: AnyObject] = [
+//            ParseClient.JSONRequestKeys.UniqueKey: UdacityClient.sharedInstance().userID as AnyObject,
+//            ParseClient.JSONRequestKeys.FirstName: self.firstName as AnyObject,
+//            ParseClient.JSONRequestKeys.LastName: self.lastName as AnyObject,
+//            ParseClient.JSONRequestKeys.MapString: self.mapString as AnyObject,
+//            ParseClient.JSONRequestKeys.MediaURL: self.linkTextField.text as AnyObject,
+//            ParseClient.JSONRequestKeys.Latitude: self.latitude as AnyObject,
+//            ParseClient.JSONRequestKeys.Longitude: self.longitude as AnyObject
+//        ]
         
         // MARK: TO-DO
         // If objectID exists, use Parse's PUT method to update student location with objectID in URL. Pass in loggedInUser dictionary.
@@ -103,6 +104,7 @@ class AddLinkViewController: UIViewController {
             }
             
         } else {
+            
             ParseClient.sharedInstance().postStudentLocation(studentDictionary: loggedInUser) { (objectID, error) in
                 
                 performUIUpdatesOnMain {

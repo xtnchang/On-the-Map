@@ -75,7 +75,7 @@ class ParseClient: NSObject {
     }
     
     // MARK: POST
-    func taskForPOSTMethod(method: String, httpRequestBody: [String: AnyObject], completionHandlerForPOST: @escaping (_ parsedResponse: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForPOSTMethod(method: String, httpRequestBody: String, completionHandlerForPOST: @escaping (_ parsedResponse: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 2/3. Build the URL, Configure the request */
         let urlString = Constants.ParseBaseURL + method
@@ -84,12 +84,16 @@ class ParseClient: NSObject {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // Convert String to UTF-8 for http request body.
+        request.httpBody = httpRequestBody.data(using: String.Encoding.utf8)
+        
         // Convert Foundation object to JSON
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: httpRequestBody, options: [])
-        } catch {
-            request.httpBody = nil
-        }
+        //        do {
+        //            request.httpBody = try JSONSerialization.data(withJSONObject: httpRequestBody, options: [])
+        //        } catch {
+        //            request.httpBody = nil
+        //        }
         
         let session = URLSession.shared
         
@@ -132,7 +136,7 @@ class ParseClient: NSObject {
     
     // MARK: PUT
     // 'parameters' parameter is for {objectId} path parameter
-    func taskForPUTMethod(method: String, parameters: String, httpRequestBody: [String: AnyObject], completionHandlerForPUT: @escaping (_ parsedResponse: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForPUTMethod(method: String, parameters: String, httpRequestBody: String, completionHandlerForPUT: @escaping (_ parsedResponse: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 2/3. Build the URL, Configure the request */
         let urlString = Constants.ParseBaseURL + method + parameters
@@ -141,12 +145,17 @@ class ParseClient: NSObject {
         request.httpMethod = "PUT"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // Convert string to UTF-8 for http request body.
+        request.httpBody = httpRequestBody.data(using: String.Encoding.utf8)
+
+        
         // Convert Foundation object to JSON
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: httpRequestBody, options: [])
-        } catch {
-            request.httpBody = nil
-        }
+//        do {
+//            request.httpBody = try JSONSerialization.data(withJSONObject: httpRequestBody, options: [])
+//        } catch {
+//            request.httpBody = nil
+//        }
         
         let session = URLSession.shared
         

@@ -77,6 +77,8 @@ class UdacityClient: NSObject {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // Convert string to utf8 codes for http request body.
         request.httpBody = httpRequestBody.data(using: String.Encoding.utf8)
         
         let session = URLSession.shared
