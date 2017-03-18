@@ -70,48 +70,45 @@ class AddLinkViewController: UIViewController {
     
     @IBAction func submitPressed(_ sender: Any) {
         
-        let loggedInUser: String = "{\"uniqueKey\": \"\(UdacityClient.sharedInstance().userID)\", \"firstName\": \"\(self.firstName)\", \"lastName\": \"\(self.lastName)\",\"mapString\": \"\(self.mapString)\", \"mediaURL\": \"\(self.linkTextField.text)\",\"latitude\": \(self.latitude), \"longitude\": \(self.longitude)}"
-        
-        // This dictionary contains the contents required for the http request body.
-//        let loggedInUser: [String: AnyObject] = [
-//            ParseClient.JSONRequestKeys.UniqueKey: UdacityClient.sharedInstance().userID as AnyObject,
-//            ParseClient.JSONRequestKeys.FirstName: self.firstName as AnyObject,
-//            ParseClient.JSONRequestKeys.LastName: self.lastName as AnyObject,
-//            ParseClient.JSONRequestKeys.MapString: self.mapString as AnyObject,
-//            ParseClient.JSONRequestKeys.MediaURL: self.linkTextField.text as AnyObject,
-//            ParseClient.JSONRequestKeys.Latitude: self.latitude as AnyObject,
-//            ParseClient.JSONRequestKeys.Longitude: self.longitude as AnyObject
-//        ]
-        
-        // MARK: TO-DO
-        // If objectID exists, use Parse's PUT method to update student location with objectID in URL. Pass in loggedInUser dictionary.
-        // If objectID doesn't exist, use Parse's POST method to create a new student location. Pass in loggedInUser dictionary.
-        // Do I need to do anything with the objectID value returned in the response body?
-        
-        // Dismiss the modal view and go back to TabViewController.
-        
-        if self.objectID != nil {
+        // Unwrap the values so they're not preceded with "Optional" in the request body.
+        if let uniqueKeyUnwrapped = UdacityClient.sharedInstance().userID,
+            let firstNameUnwrapped = self.firstName,
+            let lastNameUnwrapped = self.lastName,
+            let mapStringUnwrapped = self.mapString,
+            let mediaURLUnwrapped = self.linkTextField.text,
+            let latitudeUnwrapped = self.latitude,
+            let longitudeUnwrapped = self.longitude {
             
-            ParseClient.sharedInstance().putStudentLocation(studentDictionary: loggedInUser) { (updatedAt, error) in
+            // This string-formatted dictionary contains the contents required for the http request body.
+            let loggedInUser: String = "{\"uniqueKey\": \"\(uniqueKeyUnwrapped)\", \"firstName\": \"\(firstNameUnwrapped)\", \"lastName\": \"\(lastNameUnwrapped)\",\"mapString\": \"\(mapStringUnwrapped)\", \"mediaURL\": \"\(mediaURLUnwrapped)\",\"latitude\": \(latitudeUnwrapped), \"longitude\": \(longitudeUnwrapped)}"
+            
+            // If objectID exists, use Parse's PUT method to update student location with objectID in URL. Pass in loggedInUser dictionary.
+            // If objectID doesn't exist, use Parse's POST method to create a new student location. Pass in loggedInUser dictionary.
+            if self.objectID != nil {
                 
-                performUIUpdatesOnMain {
-                    if error == nil {
-                        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-                    } else {
-                        self.showErrorAlert(message: "There was an error updating your pin.")
+                ParseClient.sharedInstance().putStudentLocation(studentDictionary: loggedInUser) { (updatedAt, error) in
+                    
+                    performUIUpdatesOnMain {
+                        if error == nil {
+                            
+                            // Dismiss the modal view and go back to TabViewController.
+                            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                        } else {
+                            self.showErrorAlert(message: "There was an error updating your pin.")
+                        }
                     }
                 }
-            }
-            
-        } else {
-            
-            ParseClient.sharedInstance().postStudentLocation(studentDictionary: loggedInUser) { (objectID, error) in
                 
-                performUIUpdatesOnMain {
-                    if error == nil {
-                        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-                    } else {
-                        self.showErrorAlert(message: "There was an error posting your pin.")
+            } else {
+                
+                ParseClient.sharedInstance().postStudentLocation(studentDictionary: loggedInUser) { (objectID, error) in
+                    
+                    performUIUpdatesOnMain {
+                        if error == nil {
+                            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                        } else {
+                            self.showErrorAlert(message: "There was an error posting your pin. \(error)")
+                        }
                     }
                 }
             }

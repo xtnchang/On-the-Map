@@ -31,9 +31,7 @@ class ListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "StudentNameCell")!
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "StudentNameCell", for: indexPath)
         let student = self.studentInfoArrayToLoad[indexPath.row]
         
         // Since each student is a struct, not an array, use dot syntax rather than bracket subscript syntax.

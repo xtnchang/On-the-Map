@@ -82,9 +82,9 @@ class ParseClient: NSObject {
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(url: url as! URL)
         request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
         // Convert String to UTF-8 for http request body.
         request.httpBody = httpRequestBody.data(using: String.Encoding.utf8)
         
