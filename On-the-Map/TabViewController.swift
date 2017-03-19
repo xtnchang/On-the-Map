@@ -69,6 +69,7 @@ class TabViewController: UITabBarController {
         }
     }
     
+    
     @IBAction func logoutPressed(_ sender: Any) {
         
         UdacityClient.sharedInstance().deleteSession() { (success, sessionID, error) in

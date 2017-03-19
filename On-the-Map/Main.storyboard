@@ -294,10 +294,10 @@
                                 <rect key="frame" x="16" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="logoutPressed:" destination="lf3-AK-E9b" eventType="touchUpInside" id="iti-gY-eHW"/>
+                                </connections>
                             </button>
-                            <connections>
-                                <action selector="logoutPressed:" destination="lf3-AK-E9b" id="gvn-Kr-1k3"/>
-                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="pin" id="OGq-zk-v97">
                             <connections>
