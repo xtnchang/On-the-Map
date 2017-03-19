@@ -88,17 +88,8 @@ class TabViewController: UITabBarController {
     
     @IBAction func addPinPressed(_ sender: Any) {
         
-        // MARK: TO-DO
-        // Get objectID from getSingleStudentLocation (if it exists). If the method returns valid JSON, extract the objectID.
-        // Should I write a separate function to do this? And then just call that function in this IBAction?
-        
-        /***** calling getSingleStudentLocation here gives me a thread error *****/
-        
         ParseClient.sharedInstance().getSingleStudentLocation() { (studentLocation, error) in
-//            
-//            // Unwrap the objectID here? 
-              // Should I store objectID in AppDelegate? Then, in AddLinkViewController I can check whether to use PUT or POST?
-//            
+         
             performUIUpdatesOnMain {
                 
                 if studentLocation != nil {

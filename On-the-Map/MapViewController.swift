@@ -63,9 +63,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             // The lat and long are used to create a CLLocationCoordinates2D instance.
             let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
             
-            let firstName = student.firstName
-            let lastName = student.lastName
-            let mediaURL = student.mediaURL
+            
+            // Need to use multiple-let to unwrap name so that "Optional" doesn't get appended to the annotation.
+            if let firstName = student.firstName,
+            let lastName = student.lastName,
+            let mediaURL = student.mediaURL {
             
             // Here we create the annotation and set its coordiate, title, and subtitle properties
             // MKPointAnnotation is the part of the pin (what you want to annotate the map with)
@@ -76,6 +78,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             
             // Finally we place the annotation in an array of annotations.
             annotations.append(annotation)
+            }
             
         }
         
