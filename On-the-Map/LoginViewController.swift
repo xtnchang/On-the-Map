@@ -39,7 +39,7 @@ class LoginViewController: UIViewController {
                 if success {
                     self.completeLogin()
                 } else {
-                    self.showErrorAlert(message: "Failed to connect")
+                    self.showErrorAlert(message: "\(error?.localizedDescription)")
                 }
             }
         }

@@ -28,12 +28,14 @@ class ListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.studentInfoArrayToLoad.count
+        // return StudentInfo.arrayOfStudentStructs.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "StudentNameCell")!
         let student = self.studentInfoArrayToLoad[indexPath.row]
+        // let student = StudentInfo.arrayOfStudentStructs[indexPath.row]
         
         // Since each student is a struct, not an array, use dot syntax rather than bracket subscript syntax.
         cell.textLabel?.text = student.firstName
@@ -46,6 +48,7 @@ class ListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let student = self.studentInfoArrayToLoad[indexPath.row]
+        // let student = StudentInfo.arrayOfStudentStructs[indexPath.row]
         
         if let studentURL = URL(string: student.mediaURL!) {
             UIApplication.shared.open(studentURL)
