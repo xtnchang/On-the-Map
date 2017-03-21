@@ -69,15 +69,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let lastName = student.lastName,
             let mediaURL = student.mediaURL {
             
-            // Here we create the annotation and set its coordiate, title, and subtitle properties
-            // MKPointAnnotation is the part of the pin (what you want to annotate the map with)
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = coordinate
-            annotation.title = "\(firstName) \(lastName)"
-            annotation.subtitle = mediaURL
-            
-            // Finally we place the annotation in an array of annotations.
-            annotations.append(annotation)
+                // Here we create the annotation and set its coordiate, title, and subtitle properties
+                // MKPointAnnotation is the part of the pin (what you want to annotate the map with)
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = coordinate
+                annotation.title = "\(firstName) \(lastName)"
+                annotation.subtitle = mediaURL
+                
+                // Finally we place the annotation in an array of annotations.
+                annotations.append(annotation)
             }
             
         }

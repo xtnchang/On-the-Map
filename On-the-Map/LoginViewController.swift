@@ -39,7 +39,7 @@ class LoginViewController: UIViewController {
                 if success {
                     self.completeLogin()
                 } else {
-                    self.showErrorAlert(message: "Your email or password is incorrect.")
+                    self.showErrorAlert(message: "Failed to connect")
                 }
             }
         }
