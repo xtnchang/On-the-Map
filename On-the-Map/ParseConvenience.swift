@@ -16,7 +16,7 @@ extension ParseClient {
     func getStudentLocations(completionHandlerForLocations: @escaping (_ success: Bool, _ studentInfoArray: [StudentInfo]?, _ error: NSError?) -> Void) {
         
         // query string parameters for limit=100.
-        let parameters = "?\(ParameterKeys.Limit)100"
+        let parameters = "?\(ParameterKeys.Limit)100&\(ParameterKeys.Order)-updatedAt"
         
         // The parsedResponse parameter is the encompassing data structure type, the "results" dictionary.
         let _ = taskForGETMethod(method: Methods.StudentLocation, parameters: parameters) { (parsedResponse, error) in
