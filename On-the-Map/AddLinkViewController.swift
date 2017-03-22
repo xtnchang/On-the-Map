@@ -54,6 +54,11 @@ class AddLinkViewController: UIViewController {
             // Must unwrap the placemark. Placemarks is an array of potential locations for the entered name. The first property retrieves the first result.
             if let placemark = placemarks?.first  {
                 
+                // Show alert if mapString is not a valid location
+                if placemark.location == nil {
+                    self.showErrorAlert(message: "Please enter a valid location.")
+                }
+                
                 // Get latitude and longitude values from placemark
                 self.latitude = placemark.location?.coordinate.latitude
                 self.longitude = placemark.location?.coordinate.longitude
@@ -61,6 +66,12 @@ class AddLinkViewController: UIViewController {
                 // Convert CLPlacemark to MKPlacemark so that we can add it to mapView.
                 let mapKitPlacemark = MKPlacemark(placemark: placemark)
                 self.mapView.addAnnotation(mapKitPlacemark)
+                
+                // Zoom map to the correct region for showing the pin
+                self.mapView.centerCoordinate = (placemark.location?.coordinate)!
+                let coordinateSpan = MKCoordinateSpanMake(self.latitude!, self.longitude!)
+                let coordinateRegion = MKCoordinateRegion(center: (placemark.location?.coordinate)!, span: coordinateSpan)
+                self.mapView.setRegion(coordinateRegion, animated: true)
                 
                 self.activityIndicatorView.stopAnimating()
             }
