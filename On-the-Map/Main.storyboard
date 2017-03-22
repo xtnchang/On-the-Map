@@ -186,10 +186,15 @@
                                     <action selector="cancelPressed:" destination="dfF-zf-o4b" eventType="touchUpInside" id="9jQ-kK-Y6e"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="mj7-HB-msR">
+                                <rect key="frame" x="177" y="433" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="mj7-HB-msR" id="5Kz-Dv-zNU"/>
                         <outlet property="linkTextField" destination="VAq-nU-anM" id="7A0-wo-ell"/>
                         <outlet property="mapView" destination="ysa-RE-T3p" id="7MA-wZ-Qdi"/>
                     </connections>

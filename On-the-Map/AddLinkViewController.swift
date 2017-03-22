@@ -23,6 +23,7 @@ class AddLinkViewController: UIViewController {
     
     @IBOutlet weak var linkTextField: UITextField!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     var geocoder = CLGeocoder()
     
@@ -30,7 +31,8 @@ class AddLinkViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        activityIndicatorView.startAnimating()
+        activityIndicatorView.hidesWhenStopped = true;
         showPinOnMap()
     }
     
@@ -52,13 +54,15 @@ class AddLinkViewController: UIViewController {
             // Must unwrap the placemark. Placemarks is an array of potential locations for the entered name. The first property retrieves the first result.
             if let placemark = placemarks?.first  {
                 
+                // Get latitude and longitude values from placemark
+                self.latitude = placemark.location?.coordinate.latitude
+                self.longitude = placemark.location?.coordinate.longitude
+                
                 // Convert CLPlacemark to MKPlacemark so that we can add it to mapView.
                 let mapKitPlacemark = MKPlacemark(placemark: placemark)
                 self.mapView.addAnnotation(mapKitPlacemark)
                 
-                // Get latitude and longitude values from placemark
-                self.latitude = placemark.location?.coordinate.latitude
-                self.longitude = placemark.location?.coordinate.longitude
+                self.activityIndicatorView.stopAnimating()
             }
         }
     }
@@ -94,7 +98,7 @@ class AddLinkViewController: UIViewController {
                             // Dismiss the modal view and go back to TabViewController.
                             self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                         } else {
-                            self.showErrorAlert(message: "There was an error updating your pin.")
+                            self.showErrorAlert(message: "\(error?.localizedDescription)")
                         }
                     }
                 }
@@ -107,7 +111,7 @@ class AddLinkViewController: UIViewController {
                         if error == nil {
                             self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                         } else {
-                            self.showErrorAlert(message: "There was an error posting your pin. \(error)")
+                            self.showErrorAlert(message: "\(error?.localizedDescription)")
                         }
                     }
                 }
