@@ -42,11 +42,13 @@ class TabViewController: UITabBarController {
                 
                 if success {
                     if let mapVC = self.viewControllers?[0] as? MapViewController {
-                        mapVC.studentInfoArrayToLoad = studentInfoArray!
+                        // mapVC.studentInfoArrayToLoad = studentInfoArray!
+                        StudentInfo.arrayOfStudentStructs = studentInfoArray!
                         mapVC.loadStudents(studentInfo: studentInfoArray!)
                     }
                     if let listVC = self.viewControllers?[1] as? ListViewController {
-                        listVC.studentInfoArrayToLoad = studentInfoArray!
+                        // listVC.studentInfoArrayToLoad = studentInfoArray!
+                        StudentInfo.arrayOfStudentStructs = studentInfoArray!
                     }
                 } else {
                     self.showErrorAlert(messageText: "Pins failed to download.")
