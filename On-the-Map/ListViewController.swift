@@ -9,8 +9,6 @@
 import UIKit
 
 class ListViewController: UITableViewController {
-
-    var studentInfoArrayToLoad = StudentInfo.arrayOfStudentStructs
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,14 +24,12 @@ class ListViewController: UITableViewController {
     // MARK: UITableViewDataSource methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // return self.studentInfoArrayToLoad.count
         return StudentInfo.arrayOfStudentStructs.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "StudentNameCell")!
-        // let student = self.studentInfoArrayToLoad[indexPath.row]
         let student = StudentInfo.arrayOfStudentStructs[indexPath.row]
         
         // Since each student is a struct, not an array, use dot syntax rather than bracket subscript syntax.
@@ -48,7 +44,6 @@ class ListViewController: UITableViewController {
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        // let student = self.studentInfoArrayToLoad[indexPath.row]
         let student = StudentInfo.arrayOfStudentStructs[indexPath.row]
         
         if let studentURL = URL(string: student.mediaURL!) {
