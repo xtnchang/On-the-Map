@@ -92,7 +92,7 @@ class UdacityClient: NSObject {
                 completionHandlerForPOST(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
             }
             
-            /* GUARD: Was there an error from the function preceding this closure? */
+            /* GUARD: Was there an error from the function preceding this closure? (likely a network connection error) */
             guard (error == nil) else {
                 sendError(error: "There was an error with your request: \(error!.localizedDescription)")
                 return

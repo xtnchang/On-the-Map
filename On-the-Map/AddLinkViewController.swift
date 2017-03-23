@@ -51,12 +51,6 @@ class AddLinkViewController: UIViewController {
         
         geocoder.geocodeAddressString(mapString!) { (placemarks, error) in
             
-            // Show alert if mapString is not a valid location
-            if error != nil {
-                self.activityIndicatorView.stopAnimating()
-                self.showErrorAlert(message: "Please enter a valid location.")
-            }
-            
             // Must unwrap the placemark. Placemarks is an array of potential locations for the entered name. The first property retrieves the first result.
             if let placemark = placemarks?.first  {
                 

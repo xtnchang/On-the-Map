@@ -26,7 +26,7 @@ extension UdacityClient {
                 completionHandlerForSession(false, nil, NSError(domain: "completionHandlerForPOST", code: 1, userInfo: userInfo))
             }
             
-            /* GUARD: Was there an error from the function preceding this closure? */
+            /* GUARD: Was there an error from the function preceding this closure? (likely a credentials error) */
             guard (error == nil) else {
                 sendError(error: "There was an error with your request: \(error!.localizedDescription)")
                 return
