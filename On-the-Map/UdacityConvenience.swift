@@ -26,13 +26,14 @@ extension UdacityClient {
                 completionHandlerForSession(false, nil, NSError(domain: "completionHandlerForPOST", code: 1, userInfo: userInfo))
             }
             
+            /* GUARD: Was there an error from the function preceding this closure? */
             guard (error == nil) else {
-                sendError(error: "There was an error with your request: \(error)")
+                sendError(error: "There was an error with your request: \(error!.localizedDescription)")
                 return
             }
             
             guard (parsedResponse != nil) else {
-                sendError(error: "No results were found.")
+                sendError(error: "No results found.")
                 return
             }
             

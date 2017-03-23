@@ -92,15 +92,15 @@ class UdacityClient: NSObject {
                 completionHandlerForPOST(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
             }
             
-            /* GUARD: Was there an error? */
+            /* GUARD: Was there an error from the function preceding this closure? */
             guard (error == nil) else {
-                sendError(error: "There was an error with your request: \(error)")
+                sendError(error: "There was an error with your request: \(error!.localizedDescription)")
                 return
             }
             
             /* GUARD: Did we get a successful 2XX response? */
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode , statusCode >= 200 && statusCode <= 299 else {
-                sendError(error: "Your credentials are incorrect!")
+                sendError(error: "The credentials you entered are invalid.")
                 return
             }
             

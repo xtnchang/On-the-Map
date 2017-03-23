@@ -39,7 +39,7 @@ class LoginViewController: UIViewController {
                 if success {
                     self.completeLogin()
                 } else {
-                    self.showErrorAlert(message: "\(error!.userInfo.description)")
+                    self.showErrorAlert(message: "\(error!.localizedDescription)")
                 }
             }
         }
