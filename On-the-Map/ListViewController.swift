@@ -47,8 +47,21 @@ class ListViewController: UITableViewController {
         let student = StudentInfo.arrayOfStudentStructs[indexPath.row]
         
         if let studentURL = URL(string: student.mediaURL!) {
-            UIApplication.shared.open(studentURL)
+            
+            if UIApplication.shared.canOpenURL(studentURL) {
+                UIApplication.shared.open(studentURL)
+            } else {
+                self.showErrorAlert(messageText: "Not a valid URL.")
+            }
         }
     }
+}
 
+private extension ListViewController {
+    
+    func showErrorAlert(messageText: String) {
+        let alert = UIAlertController(title: "Alert", message: messageText, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }

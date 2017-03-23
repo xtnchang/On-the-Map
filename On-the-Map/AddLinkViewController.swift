@@ -70,7 +70,7 @@ class AddLinkViewController: UIViewController {
                 // Zoom map to the correct region for showing the pin
                 self.mapView.centerCoordinate = (placemark.location?.coordinate)!
                 // Instantiate an MKCoordinateSpanMake to pass into MKCoordinateRegion
-                let coordinateSpan = MKCoordinateSpanMake(self.latitude!, self.longitude!)
+                let coordinateSpan = MKCoordinateSpanMake(80,80)
                 // Instantiate an MKCoordinateRegion to pass into setRegion.
                 let coordinateRegion = MKCoordinateRegion(center: (placemark.location?.coordinate)!, span: coordinateSpan)
                 self.mapView.setRegion(coordinateRegion, animated: true)
