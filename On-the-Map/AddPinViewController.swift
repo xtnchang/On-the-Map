@@ -37,7 +37,7 @@ class AddPinViewController: UIViewController {
     
     @IBAction func findLocationPressed(_ sender: Any) {
         
-        checkMapString(mapString: self.locationTextField.text!)
+        // checkMapString(mapString: self.locationTextField.text!)
         
         let controller = self.storyboard!.instantiateViewController(withIdentifier: "AddLinkViewController") as! AddLinkViewController
         
@@ -50,15 +50,15 @@ class AddPinViewController: UIViewController {
         present(controller, animated: true, completion: nil)
     }
     
-    func checkMapString(mapString: String) {
-        geocoder.geocodeAddressString(mapString) { (placemarks, error) in
-            
-            // Show alert if mapString is not a valid location
-            if error != nil {
-                self.showErrorAlert(message: "Please enter a valid location.")
-            }
-        }
-    }
+//    func checkMapString(mapString: String) {
+//        geocoder.geocodeAddressString(mapString) { (placemarks, error) in
+//            
+//            // Show alert if mapString is not a valid location
+//            if error != nil {
+//                self.showErrorAlert(message: "Please enter a valid location.")
+//            }
+//        }
+//    }
 }
 
 private extension AddPinViewController {
