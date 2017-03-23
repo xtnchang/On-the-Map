@@ -15,6 +15,8 @@ class AddPinViewController: UIViewController {
     var firstName: String?
     var lastName: String?
     
+    var geocoder = CLGeocoder()
+    
     @IBOutlet weak var locationTextField: UITextField!
     
     override func viewDidLoad() {
@@ -35,6 +37,8 @@ class AddPinViewController: UIViewController {
     
     @IBAction func findLocationPressed(_ sender: Any) {
         
+        checkMapString(mapString: self.locationTextField.text!)
+        
         let controller = self.storyboard!.instantiateViewController(withIdentifier: "AddLinkViewController") as! AddLinkViewController
         
         // Pass first name and last name data to the next controller
@@ -44,6 +48,16 @@ class AddPinViewController: UIViewController {
         // Pass the entered city data to the next controller
         controller.mapString = self.locationTextField.text
         present(controller, animated: true, completion: nil)
+    }
+    
+    func checkMapString(mapString: String) {
+        geocoder.geocodeAddressString(mapString) { (placemarks, error) in
+            
+            // Show alert if mapString is not a valid location
+            if error != nil {
+                self.showErrorAlert(message: "Please enter a valid location.")
+            }
+        }
     }
 }
 
