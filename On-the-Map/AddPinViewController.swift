@@ -14,7 +14,7 @@ class AddPinViewController: UIViewController {
     
     var firstName: String?
     var lastName: String?
-
+    
     @IBOutlet weak var locationTextField: UITextField!
     
     override func viewDidLoad() {
@@ -36,13 +36,22 @@ class AddPinViewController: UIViewController {
     @IBAction func findLocationPressed(_ sender: Any) {
         
         let controller = self.storyboard!.instantiateViewController(withIdentifier: "AddLinkViewController") as! AddLinkViewController
-            
-            // Pass first name and last name data to the next controller
-            controller.firstName = self.firstName
-            controller.lastName = self.lastName
-            
-            // Pass the entered city data to the next controller
-            controller.mapString = self.locationTextField.text
-            present(controller, animated: true, completion: nil)
+        
+        // Pass first name and last name data to the next controller
+        controller.firstName = self.firstName
+        controller.lastName = self.lastName
+        
+        // Pass the entered city data to the next controller
+        controller.mapString = self.locationTextField.text
+        present(controller, animated: true, completion: nil)
+    }
+}
+
+private extension AddPinViewController {
+    
+    func showErrorAlert(message: String) {
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
