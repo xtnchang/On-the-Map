@@ -18,8 +18,8 @@ extension ParseClient {
         // query string parameters for limit=100.
         let parameters = "?\(ParameterKeys.Limit)100&\(ParameterKeys.Order)-updatedAt"
         
-        // The parsedResponse parameter is the encompassing data structure type, the "results" dictionary.
-        let _ = taskForGETMethod(method: Methods.StudentLocation, parameters: parameters) { (parsedResponse, error) in
+        // The deserializedData parameter is the encompassing data structure type, the "results" dictionary.
+        let _ = taskForGETMethod(method: Methods.StudentLocation, parameters: parameters) { (deserializedData, error) in
         
             func sendError(error: String) {
                 print(error)
@@ -32,13 +32,13 @@ extension ParseClient {
                 return
             }
             
-            guard (parsedResponse != nil) else {
+            guard (deserializedData != nil) else {
                 sendError(error: "No results were found.")
                 return
             }
             
             // drill down to the array of student location dictionaries
-            guard let studentLocations = parsedResponse?[JSONResponseKeys.Results] as? [[String:AnyObject]]? else {
+            guard let studentLocations = deserializedData?[JSONResponseKeys.Results] as? [[String:AnyObject]]? else {
                 sendError(error: "No results were found.")
                 return
             }
@@ -65,7 +65,7 @@ extension ParseClient {
         let parameters = "\(ParameterKeys.Where)%7B%22\(JSONResponseKeys.UniqueKey)%22%3A%22\(UdacityClient.sharedInstance().userID!)%22%7D"
         
         // The 'results' parameter is the "results" dictionary
-        let _ = taskForGETMethod(method: Methods.StudentLocation, parameters: parameters) { (parsedResponse, error) in
+        let _ = taskForGETMethod(method: Methods.StudentLocation, parameters: parameters) { (deserializedData, error) in
             
             func sendError(error: String) {
                 print(error)
@@ -78,12 +78,12 @@ extension ParseClient {
                 return
             }
             
-            guard (parsedResponse != nil) else {
+            guard (deserializedData != nil) else {
                 sendError(error: "No results were found.")
                 return
             }
             
-            guard let studentLocation = parsedResponse?[JSONResponseKeys.Results] as? [[String: AnyObject]] else {
+            guard let studentLocation = deserializedData?[JSONResponseKeys.Results] as? [[String: AnyObject]] else {
                 sendError(error: "No results were found.")
                 return
             }
@@ -109,7 +109,7 @@ extension ParseClient {
         
         // The parsedResponse parameter is the dictionary with keys createdAt and objectId.
         // studentDictionary must be converted to JSON to be sent to the server.
-        let _ = taskForPOSTMethod(method: Methods.StudentLocation, httpRequestBody: studentDictionary) { (parsedResponse, error) in
+        let _ = taskForPOSTMethod(method: Methods.StudentLocation, httpRequestBody: studentDictionary) { (deserializedData, error) in
         
             func sendError(error: String) {
                 print(error)
@@ -122,12 +122,12 @@ extension ParseClient {
                 return
             }
             
-            guard (parsedResponse != nil) else {
+            guard (deserializedData != nil) else {
                 sendError(error: "No results were found.")
                 return
             }
             
-            guard let objectID = parsedResponse?[JSONResponseKeys.ObjectId] as! String? else {
+            guard let objectID = deserializedData?[JSONResponseKeys.ObjectId] as! String? else {
                 sendError(error: "No results were found.")
                 return
             }
@@ -142,7 +142,7 @@ extension ParseClient {
     func putStudentLocation(studentDictionary: String, completionHandlerForPutLocation: @escaping (_ updatedAt: String?, _ error: NSError?) -> Void) {
         
         // The parsedResponse parameter is a dictionary with a single key, updatedAt
-        let _ = taskForPUTMethod(method: Methods.StudentLocation, parameters: self.objectID!, httpRequestBody: studentDictionary) { (parsedResponse, error) in
+        let _ = taskForPUTMethod(method: Methods.StudentLocation, parameters: self.objectID!, httpRequestBody: studentDictionary) { (deserializedData, error) in
             
             func sendError(error: String) {
                 print(error)
@@ -155,12 +155,12 @@ extension ParseClient {
                 return
             }
             
-            guard (parsedResponse != nil) else {
+            guard (deserializedData != nil) else {
                 sendError(error: "No results were found.")
                 return
             }
             
-            guard let updatedAt = parsedResponse?[JSONResponseKeys.UpdatedAt] as! String? else {
+            guard let updatedAt = deserializedData?[JSONResponseKeys.UpdatedAt] as! String? else {
                 sendError(error: "No results were found.")
                 return
             }

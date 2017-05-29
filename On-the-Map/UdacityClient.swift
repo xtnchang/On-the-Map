@@ -16,7 +16,7 @@ class UdacityClient: NSObject {
     
     // MARK: GET
     // No URL path parameters required to send requests to server for Udacity API. Only methods are needed. 
-    func taskForGETMethod(method: String, completionHandlerForGET: @escaping (_ parsedResponse: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForGETMethod(method: String, completionHandlerForGET: @escaping (_ deserializedData: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         
         /* 2/3. Build the URL, Configure the request */
@@ -57,7 +57,7 @@ class UdacityClient: NSObject {
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
             // Parse raw JSON and pass values for (result, error) to completionHandlerForParsingJSON.
-            self.parseJSONWithCompletionHandler(newData, completionHandlerForParsingJSON: completionHandlerForGET)
+            self.deserializeDataWithCompletionHandler(newData, completionHandlerForDeserializedData: completionHandlerForGET)
         }
         
         /* 7. Start the request */
@@ -68,7 +68,7 @@ class UdacityClient: NSObject {
 
     // MARK: POST
     // No URL parameters required to send requests to server for Udacity API, therefore no 'parameters' parameter needed. Only HTTP request message (httpRequestBody) parameter needed.
-    func taskForPOSTMethod(method: String, httpRequestBody: String, completionHandlerForPOST: @escaping (_ parsedResponse: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForPOSTMethod(method: String, httpRequestBody: String, completionHandlerForPOST: @escaping (_ deserializedData: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 2/3. Build the URL, Configure the request */
         let urlString = Constants.UdacityBaseURL + method
@@ -113,7 +113,7 @@ class UdacityClient: NSObject {
             let newData = data.subdata(in: Range(uncheckedBounds: (5, data.count)))
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
-            self.parseJSONWithCompletionHandler(newData, completionHandlerForParsingJSON: completionHandlerForPOST)
+            self.deserializeDataWithCompletionHandler(newData, completionHandlerForDeserializedData: completionHandlerForPOST)
             }
     
             /* 7. Start the request */
@@ -122,7 +122,7 @@ class UdacityClient: NSObject {
             return task
     }
     
-    func taskForDELETEMethod(method: String, completionHandlerForDELETE: @escaping (_ parsedResponse: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForDELETEMethod(method: String, completionHandlerForDELETE: @escaping (_ deserializedData: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 2/3. Build the URL, Configure the request */
         let urlString = Constants.UdacityBaseURL + method
@@ -170,7 +170,7 @@ class UdacityClient: NSObject {
             let newData = data.subdata(in: Range(uncheckedBounds: (5, data.count)))
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
-            self.parseJSONWithCompletionHandler(newData, completionHandlerForParsingJSON: completionHandlerForDELETE)
+            self.deserializeDataWithCompletionHandler(newData, completionHandlerForDeserializedData: completionHandlerForDELETE)
         }
         
         /* 7. Start the request */
@@ -182,18 +182,18 @@ class UdacityClient: NSObject {
 
     // given raw JSON, return a usable Foundation object
     // convertDataWithCompletionHandler gets called at the bottom of taskForGETMethod.
-    private func parseJSONWithCompletionHandler(_ data: Data, completionHandlerForParsingJSON: (_ parsedResponse: AnyObject?, _ error: NSError?) -> Void) {
+    private func deserializeDataWithCompletionHandler(_ data: Data, completionHandlerForDeserializedData: (_ deserializedData: AnyObject?, _ error: NSError?) -> Void) {
         
-        var parsedResponse: AnyObject! = nil
+        var deserializedData: AnyObject! = nil
         do {
-            parsedResponse = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
+            deserializedData = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
         } catch {
             let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
             // Pass in arguments for the completionHandler...and then after the parseJSONWithCompletionHandler function is done running, run completionHandlerForParsingJSON
-            completionHandlerForParsingJSON(nil, NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
+            completionHandlerForDeserializedData(nil, NSError(domain: "deserializeDataWithCompletionHandler", code: 1, userInfo: userInfo))
         }
         
-        completionHandlerForParsingJSON(parsedResponse, nil)
+        completionHandlerForDeserializedData(deserializedData, nil)
     }
     
     // MARK: Shared Instance
