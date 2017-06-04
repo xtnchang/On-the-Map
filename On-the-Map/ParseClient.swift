@@ -88,13 +88,6 @@ class ParseClient: NSObject {
         // Convert String to UTF-8 for http request body.
         request.httpBody = httpRequestBody.data(using: String.Encoding.utf8)
         
-        // Convert Foundation object to JSON
-        //        do {
-        //            request.httpBody = try JSONSerialization.data(withJSONObject: httpRequestBody, options: [])
-        //        } catch {
-        //            request.httpBody = nil
-        //        }
-        
         let session = URLSession.shared
         
         /* 4. Make the request */
